@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Truck, Menu } from "lucide-react";
+import { Compass, Menu } from "lucide-react";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,13 +27,13 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-14 h-14 bg-primary flex items-center justify-center transform -skew-x-12 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.3)]">
-              <Truck className="w-8 h-8 text-white transform skew-x-12" />
+              <Compass className="w-8 h-8 text-white transform skew-x-12" />
             </div>
             <div className="flex flex-col">
               <span className="text-3xl font-black tracking-tighter text-white uppercase leading-none drop-shadow-md">
-                Dispatch<span className="text-primary">Pro</span>
+                Magellan
               </span>
-              <span className="text-xs text-gray-300 font-bold tracking-[0.3em] uppercase leading-none mt-1">Logistics</span>
+              <span className="text-xs text-primary font-bold tracking-[0.3em] uppercase leading-none mt-1">Dispatching</span>
             </div>
           </div>
 
