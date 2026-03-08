@@ -1,0 +1,293 @@
+1. Landing Page Design
+
+
+
+Design and build one high-converting landing page.
+
+
+
+The page should look:
+
+
+
+• Modern
+• Professional
+• Trustworthy
+• Optimized for mobile
+
+
+
+The majority of drivers will visit from mobile devices, so mobile optimization is critical.
+
+
+
+Images should include:
+
+
+
+• Semi trucks
+• Truck drivers
+• Logistics / dispatch visuals
+
+
+
+2. Landing Page Structure
+
+
+
+The page should include the following sections:
+
+
+
+Hero Section
+
+
+
+Headline example:
+
+
+
+Get a Dedicated Dispatcher and Higher Paying Loads
+
+
+
+Subheadline explaining the service clearly.
+
+
+
+Trust badges such as:
+
+
+
+• Dedicated Dispatcher
+• No Forced Dispatch
+• 24/7 Driver Support
+• Keep More of Your Revenue
+
+
+
+Primary call-to-action button throughout the page:
+
+
+
+Check Eligibility
+
+
+
+This button should lead to the booking calendar.
+
+
+
+Driver Problems Section
+
+
+
+Explain common problems truck drivers face:
+
+
+
+• Spending hours searching load boards
+• Brokers offering low rates
+• Too much paperwork
+• No time to focus on driving
+
+
+
+Our Dispatch Solution
+
+
+
+Explain how the dispatch service works and how it helps drivers.
+
+
+
+Examples:
+
+
+
+• Load sourcing
+• Rate negotiation
+• Broker credit checks
+• Paperwork management
+• Route planning
+
+
+
+Benefits Section
+
+
+
+Explain why drivers should work with us.
+
+
+
+Examples:
+
+
+
+• Higher paying loads
+• Dedicated dispatcher
+• No forced dispatch
+• Paperwork handled
+• Focus on driving
+
+
+
+How It Works
+
+
+
+Simple 3-step process:
+
+
+
+Step 1 — Apply
+Step 2 — Speak with our dispatch team
+Step 3 — Start receiving better loads
+
+
+
+Explainer Video Section
+
+
+
+The page should include space for a 60–90 second explainer video that will be placed on the page.
+
+
+
+Booking Section
+
+
+
+Embed a Calendly booking calendar where drivers can schedule a call.
+
+
+
+3. Lead Capture & Booking Integration
+
+
+
+Set up the booking system so that:
+
+
+
+• Drivers can schedule a call through Calendly
+• Booking confirmations are sent automatically
+• Email notifications are triggered when a booking is made
+
+
+
+4. Tracking Setup
+
+
+
+Basic tracking should be installed:
+
+
+
+• Meta Pixel
+• Basic analytics tracking
+
+
+
+This allows us to track ad performance.
+
+
+
+Platforms You Can Use
+
+
+
+You may use any of the following platforms:
+
+
+
+• WordPress
+• Webflow
+• Framer
+• Carrd
+
+
+
+Choose whichever allows you to deliver a fast, professional landing page.
+
+
+
+Design Requirements
+
+
+
+The landing page should feel:
+
+
+
+• Professional
+• Clean
+• Trustworthy
+• Optimized for conversion
+
+
+
+The goal is for drivers to immediately feel they are dealing with a credible dispatch company.
+
+
+
+Deliverables
+
+
+
+• Completed landing page ready for ads
+• Calendly booking fully integrated
+• Meta Pixel installed
+• Mobile optimized design
+• Fully functional booking flow
+
+
+
+Ideal Candidate
+
+
+
+You are:
+
+
+
+• Experienced building lead generation landing pages
+• Comfortable integrating booking calendars and forms
+• Able to design clean, modern pages that convert
+
+
+
+Bonus experience:
+
+
+
+• Service business lead generation funnels
+• Logistics or trucking industry marketing
+
+
+
+To Apply
+
+
+
+Please include:
+
+
+
+• Examples of landing pages you have built
+• Tools you plan to use (WordPress, Webflow, etc.)
+• Estimated timeline for completion
+• Confirmation you can complete this project within the budget
+
+
+
+Applications without portfolio examples will not be reviewed.
+
+
+
+Important
+
+
+
+When applying, include the word Dispatch at the top of your proposal so we know you read the full descriptio
