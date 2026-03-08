@@ -22,25 +22,25 @@ export default function Benefits() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-16 items-center">
+        <div className="flex flex-col lg:flex-row gap-12 sm:gap-16 items-center">
           <div className="w-full lg:w-1/2">
             <div className="inline-flex items-center gap-3 px-4 py-1 mb-6 bg-primary text-white font-display font-bold text-sm tracking-widest uppercase transform -skew-x-12">
               <span className="transform skew-x-12 block">The Advantage</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-black mb-6 text-white uppercase tracking-tighter">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 sm:mb-6 text-white uppercase tracking-tighter leading-tight">
               Why Drivers <span className="text-primary">Choose Us</span>
             </h2>
-            <p className="text-xl text-gray-300 mb-10 font-sans">
+            <p className="text-lg sm:text-xl text-gray-300 mb-8 sm:mb-10 font-sans">
               We aren't just finding loads; we're building a profitable business together. Our success is directly tied to your success.
             </p>
 
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {benefitsList.map((benefit, i) => (
-                <li key={i} className="flex items-start gap-3 bg-white/5 p-4 border border-white/10 hover:border-primary/50 transition-colors">
-                  <div className="w-6 h-6 rounded-none bg-primary flex items-center justify-center shrink-0 mt-0.5">
-                    <Check className="w-4 h-4 text-white" />
+                <li key={i} className="flex items-start gap-3 bg-white/5 p-3 sm:p-4 border border-white/10 hover:border-primary/50 transition-colors">
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-none bg-primary flex items-center justify-center shrink-0 mt-0.5">
+                    <Check className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
                   </div>
-                  <span className="text-base text-gray-200 font-bold uppercase tracking-wide">{benefit}</span>
+                  <span className="text-sm sm:text-base text-gray-200 font-bold uppercase tracking-wide leading-tight">{benefit}</span>
                 </li>
               ))}
             </ul>

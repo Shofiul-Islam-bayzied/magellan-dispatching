@@ -33,37 +33,37 @@ export default function Hero() {
             <span className="transform skew-x-12 block">Premium Logistics</span>
           </div>
           
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black text-white leading-[0.95] mb-8 tracking-tighter uppercase drop-shadow-xl">
+          <h1 className="text-4xl sm:text-6xl lg:text-8xl font-black text-white leading-[0.95] mb-6 sm:mb-8 tracking-tighter uppercase drop-shadow-xl">
             WE KEEP YOUR TRUCK <br />
             <span className="text-primary block mt-2 drop-shadow-2xl">MOVING & EARNING.</span>
           </h1>
           
-          <p className="text-xl sm:text-2xl text-white mb-12 max-w-2xl font-sans border-l-8 border-primary pl-6 bg-black/40 p-6 backdrop-blur-md shadow-lg">
+          <p className="text-base sm:text-xl md:text-2xl text-white mb-8 sm:mb-12 max-w-2xl font-sans border-l-4 sm:border-l-8 border-primary pl-4 sm:pl-6 bg-black/40 p-4 sm:p-6 backdrop-blur-md shadow-lg">
             Stop fighting with brokers. Our dedicated dispatchers negotiate the highest rates and handle the paperwork so you can focus on the road.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-6 mb-16">
-            <Button size="lg" className="text-xl px-12 py-8 bg-primary text-white hover:bg-white hover:text-[#0B3C5D] rounded-none transition-all duration-300 font-display font-bold tracking-widest uppercase group shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] hover:shadow-none hover:translate-y-1 hover:translate-x-1" onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}>
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mb-12 sm:mb-16">
+            <Button size="lg" className="text-base sm:text-xl px-6 py-6 sm:px-12 sm:py-8 bg-primary text-white hover:bg-white hover:text-[#0B3C5D] rounded-none transition-all duration-300 font-display font-bold tracking-widest uppercase group shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] hover:shadow-none hover:translate-y-1 hover:translate-x-1" onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}>
               Check Eligibility
-              <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform" />
+              <ArrowRight className="ml-2 sm:ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform" />
             </Button>
-            <Button size="lg" variant="outline" className="text-xl px-12 py-8 rounded-none bg-transparent text-white border-4 border-white hover:bg-white hover:text-[#0B3C5D] transition-all duration-300 font-display font-bold tracking-widest uppercase shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] hover:shadow-none hover:translate-y-1 hover:translate-x-1" onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>
+            <Button size="lg" variant="outline" className="text-base sm:text-xl px-6 py-6 sm:px-12 sm:py-8 rounded-none bg-transparent text-white border-2 sm:border-4 border-white hover:bg-white hover:text-[#0B3C5D] transition-all duration-300 font-display font-bold tracking-widest uppercase shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] hover:shadow-none hover:translate-y-1 hover:translate-x-1" onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>
               See How It Works
             </Button>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 border-t-2 border-white/20">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 pt-8 sm:pt-10 border-t-2 border-white/20">
             {[
               { icon: ShieldCheck, text: "Dedicated Agent" },
               { icon: TrendingUp, text: "Top Tier Rates" },
               { icon: PhoneCall, text: "24/7 Support" },
               { icon: CheckCircle2, text: "No Forced Dispatch" },
             ].map((badge, i) => (
-              <div key={i} className="flex items-center gap-4 text-white group cursor-default">
-                <div className="p-3 bg-primary/20 backdrop-blur-sm border-2 border-primary/50 group-hover:bg-primary transition-colors duration-300 transform -skew-x-6">
-                  <badge.icon className="w-8 h-8 text-primary group-hover:text-white shrink-0 transform skew-x-6 transition-colors duration-300" />
+              <div key={i} className="flex items-center gap-3 sm:gap-4 text-white group cursor-default">
+                <div className="p-2 sm:p-3 bg-primary/20 backdrop-blur-sm border-2 border-primary/50 group-hover:bg-primary transition-colors duration-300 transform -skew-x-6">
+                  <badge.icon className="w-6 h-6 sm:w-8 sm:h-8 text-primary group-hover:text-white shrink-0 transform skew-x-6 transition-colors duration-300" />
                 </div>
-                <span className="text-lg font-display font-bold uppercase tracking-wider leading-tight">{badge.text}</span>
+                <span className="text-sm sm:text-lg font-display font-bold uppercase tracking-wider leading-tight">{badge.text}</span>
               </div>
             ))}
           </div>

@@ -24,31 +24,31 @@ export default function Booking() {
       <div className="absolute top-0 right-0 w-64 h-full bg-primary/5 transform skew-x-12 z-0 hidden lg:block"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-20 items-start max-w-7xl mx-auto">
+        <div className="flex flex-col lg:flex-row gap-12 sm:gap-20 items-start max-w-7xl mx-auto">
           
-          <div className="w-full lg:w-5/12 pt-10">
-            <div className="inline-flex items-center gap-3 px-4 py-1 mb-8 bg-[#0B3C5D] text-white font-display font-bold text-sm tracking-widest uppercase transform -skew-x-12">
+          <div className="w-full lg:w-5/12 pt-4 sm:pt-10">
+            <div className="inline-flex items-center gap-3 px-4 py-1 mb-6 sm:mb-8 bg-[#0B3C5D] text-white font-display font-bold text-xs sm:text-sm tracking-widest uppercase transform -skew-x-12">
               <span className="transform skew-x-12 block">Get Started</span>
             </div>
             
-            <h2 className="text-5xl md:text-6xl font-black text-[#2F2F2F] mb-8 uppercase tracking-tighter leading-[0.9]">
-              READY TO MAXIMIZE <span className="text-primary block mt-2">YOUR REVENUE?</span>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#2F2F2F] mb-6 sm:mb-8 uppercase tracking-tighter leading-[0.95] sm:leading-[0.9]">
+              READY TO MAXIMIZE <span className="text-primary block mt-1 sm:mt-2">YOUR REVENUE?</span>
             </h2>
             
-            <p className="text-xl text-gray-600 font-sans mb-12 leading-relaxed border-l-4 border-primary pl-6">
+            <p className="text-lg sm:text-xl text-gray-600 font-sans mb-8 sm:mb-12 leading-relaxed border-l-4 border-primary pl-4 sm:pl-6">
               Schedule a quick 15-minute onboarding call with our dispatch specialists. We'll discuss your lanes, your goals, and show you exactly how much money you're leaving on the table.
             </p>
 
-            <div className="space-y-6 mb-12">
+            <div className="space-y-4 sm:space-y-6 mb-10 sm:mb-12">
               {[
                 "No commitment or upfront fees",
                 "Find out if your truck qualifies",
                 "Learn about our premium freight network",
                 "Get set up to run within 24 hours"
               ].map((item, i) => (
-                <div key={i} className="flex items-center gap-4 bg-gray-50 p-4 border-l-2 border-primary">
-                  <CheckCircle2 className="w-6 h-6 text-primary shrink-0" />
-                  <span className="font-bold text-[#2F2F2F] uppercase tracking-wide">{item}</span>
+                <div key={i} className="flex items-center gap-3 sm:gap-4 bg-gray-50 p-3 sm:p-4 border-l-2 border-primary">
+                  <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-primary shrink-0" />
+                  <span className="font-bold text-[#2F2F2F] uppercase tracking-wide text-sm sm:text-base">{item}</span>
                 </div>
               ))}
             </div>

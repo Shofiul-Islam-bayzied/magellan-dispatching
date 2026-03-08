@@ -32,29 +32,29 @@ export default function Problems() {
             <div className="inline-flex items-center gap-3 px-4 py-1 mb-6 bg-[#0B3C5D] text-white font-display font-bold text-sm tracking-widest uppercase transform -skew-x-12">
               <span className="transform skew-x-12 block">The Problem</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-black text-foreground mb-6 uppercase tracking-tighter leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground mb-6 uppercase tracking-tighter leading-[1.1]">
               Sound Familiar? The Struggle of an <span className="text-primary">Independent Operator</span>
             </h2>
-            <p className="text-xl text-gray-600 mb-10 font-sans border-l-4 border-gray-300 pl-4">
+            <p className="text-lg sm:text-xl text-gray-600 mb-8 sm:mb-10 font-sans border-l-4 border-gray-300 pl-4">
               You got into the trucking business for freedom and profit, but instead you're finding yourself acting as a full-time secretary, negotiator, and dispatcher.
             </p>
 
-            <div className="grid gap-6">
+            <div className="grid gap-4 sm:gap-6">
               {problems.map((problem, i) => (
-                <div key={i} className="flex gap-6 bg-white p-6 border-l-4 border-primary shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-12 h-12 bg-red-100 flex items-center justify-center shrink-0 transform -skew-x-12">
-                    <problem.icon className="w-6 h-6 text-red-600 transform skew-x-12" />
+                <div key={i} className="flex gap-4 sm:gap-6 bg-white p-4 sm:p-6 border-l-4 border-primary shadow-sm hover:shadow-md transition-shadow">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-red-100 flex items-center justify-center shrink-0 transform -skew-x-12">
+                    <problem.icon className="w-5 h-5 sm:w-6 sm:h-6 text-red-600 transform skew-x-12" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-black text-foreground mb-2 uppercase tracking-tight">{problem.title}</h3>
-                    <p className="text-gray-600 font-sans text-lg">{problem.description}</p>
+                    <h3 className="text-xl sm:text-2xl font-black text-foreground mb-1 sm:mb-2 uppercase tracking-tight">{problem.title}</h3>
+                    <p className="text-sm sm:text-base text-gray-600 font-sans">{problem.description}</p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="w-full lg:w-1/2">
+          <div className="w-full lg:w-1/2 mt-8 lg:mt-0">
             <div className="relative overflow-hidden shadow-2xl border-8 border-white">
               <img 
                 src="/src/assets/images/driver-problems.jpg" 

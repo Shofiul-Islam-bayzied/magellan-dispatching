@@ -2,29 +2,29 @@ import { Compass } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#111111] text-white pt-20 pb-10 border-t-8 border-primary">
+    <footer className="bg-[#111111] text-white pt-16 sm:pt-20 pb-8 sm:pb-10 border-t-8 border-primary">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 sm:gap-12 mb-12 sm:mb-16">
           <div className="md:col-span-2">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-primary rounded-none flex items-center justify-center">
-                <Compass className="w-8 h-8 text-white" />
+            <div className="flex items-center gap-3 mb-4 sm:mb-6">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-none flex items-center justify-center">
+                <Compass className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </div>
               <div className="flex flex-col">
-                <span className="text-3xl font-black tracking-tighter text-white uppercase leading-none drop-shadow-md">
+                <span className="text-2xl sm:text-3xl font-black tracking-tighter text-white uppercase leading-none drop-shadow-md">
                   Magellan
                 </span>
-                <span className="text-xs text-primary font-bold tracking-[0.3em] uppercase leading-none mt-1">Dispatching</span>
+                <span className="text-[10px] sm:text-xs text-primary font-bold tracking-[0.3em] uppercase leading-none mt-1">Dispatching</span>
               </div>
             </div>
-            <p className="text-gray-400 font-sans max-w-sm mb-8 leading-relaxed">
+            <p className="text-sm sm:text-base text-gray-400 font-sans max-w-sm mb-6 sm:mb-8 leading-relaxed">
               Premium dispatching services designed exclusively for independent owner-operators and small fleets. We handle the office, you handle the road.
             </p>
           </div>
           
           <div>
-            <h4 className="font-display font-bold text-xl uppercase tracking-widest mb-6 text-white">Quick Links</h4>
-            <ul className="space-y-4 font-sans text-gray-400">
+            <h4 className="font-display font-bold text-lg sm:text-xl uppercase tracking-widest mb-4 sm:mb-6 text-white">Quick Links</h4>
+            <ul className="space-y-3 sm:space-y-4 font-sans text-sm sm:text-base text-gray-400">
               <li><a href="#how-it-works" className="hover:text-primary transition-colors">How It Works</a></li>
               <li><a href="#solution" className="hover:text-primary transition-colors">Our Services</a></li>
               <li><a href="#benefits" className="hover:text-primary transition-colors">Why Choose Us</a></li>
@@ -32,17 +32,17 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-display font-bold text-xl uppercase tracking-widest mb-6 text-white">Contact</h4>
-            <ul className="space-y-4 font-sans text-gray-400">
-              <li><a href="mailto:info@magellandispatching.com" className="hover:text-primary transition-colors">info@magellandispatching.com</a></li>
+            <h4 className="font-display font-bold text-lg sm:text-xl uppercase tracking-widest mb-4 sm:mb-6 text-white">Contact</h4>
+            <ul className="space-y-3 sm:space-y-4 font-sans text-sm sm:text-base text-gray-400">
+              <li><a href="mailto:info@magellandispatching.com" className="hover:text-primary transition-colors break-all">info@magellandispatching.com</a></li>
               <li><a href="tel:+18005550199" className="hover:text-primary transition-colors">(800) 555-0199</a></li>
             </ul>
           </div>
         </div>
         
-        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500 text-sm font-sans">
-          <p className="uppercase tracking-widest font-bold">© {new Date().getFullYear()} Magellan Dispatching.</p>
-          <div className="flex gap-6 uppercase tracking-widest font-bold">
+        <div className="border-t border-gray-800 pt-6 sm:pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500 text-xs sm:text-sm font-sans">
+          <p className="uppercase tracking-widest font-bold text-center sm:text-left">© {new Date().getFullYear()} Magellan Dispatching.</p>
+          <div className="flex gap-4 sm:gap-6 uppercase tracking-widest font-bold">
             <a href="#" className="hover:text-white transition-colors">Privacy</a>
             <a href="#" className="hover:text-white transition-colors">Terms</a>
           </div>
