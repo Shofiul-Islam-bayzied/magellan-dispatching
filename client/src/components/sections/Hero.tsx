@@ -3,12 +3,13 @@ import { CheckCircle2, PhoneCall, ShieldCheck, TrendingUp, ArrowRight } from "lu
 
 export default function Hero() {
   return (
-    <section className="relative pt-32 pb-24 lg:pt-48 lg:pb-32 overflow-hidden">
+    <section className="relative pt-40 pb-32 lg:pt-56 lg:pb-48 overflow-hidden bg-[#0B3C5D]" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 90%, 0% 100%)' }}>
       {/* Video Background with overlay */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-secondary/80 mix-blend-multiply z-10" />
-        {/* Gradient fade to match the next section's background */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10" />
+        <div className="absolute inset-0 bg-[#0B3C5D]/60 mix-blend-multiply z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0B3C5D] via-[#0B3C5D]/80 to-transparent z-10" />
+        {/* Abstract pattern overlay for industrial feel */}
+        <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiNmZmYiLz48L3N2Zz4=')] z-10" />
         
         <video 
           autoPlay 
@@ -16,49 +17,53 @@ export default function Hero() {
           muted 
           playsInline 
           poster="/src/assets/images/hero-truck.jpg"
-          className="w-full h-full object-cover scale-105"
+          className="w-full h-full object-cover"
         >
           <source src="https://assets.mixkit.co/videos/preview/mixkit-semi-truck-driving-along-a-highway-42750-large.mp4" type="video/mp4" />
-          {/* Fallback to image if video isn't available/supported */}
           <img src="/src/assets/images/hero-truck.jpg" alt="Semi truck" className="w-full h-full object-cover" />
         </video>
       </div>
 
+      {/* FreezPak inspired angled accent line */}
+      <div className="absolute bottom-0 left-0 w-full h-4 bg-primary z-20" style={{ transform: 'skewY(-3deg)', transformOrigin: 'bottom left', bottom: '-20px' }}></div>
+
       <div className="container relative z-20 mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl">
-          <div className="inline-block px-4 py-1.5 mb-6 rounded-sm border border-primary/50 bg-primary/10 backdrop-blur-md">
-            <span className="text-primary font-bold tracking-wider text-sm uppercase">Premium Dispatch Services</span>
+        <div className="max-w-5xl">
+          <div className="inline-flex items-center gap-3 px-6 py-2 mb-8 bg-primary text-white font-display font-bold text-lg tracking-[0.2em] uppercase transform -skew-x-12 shadow-[5px_5px_0px_0px_rgba(0,0,0,0.3)]">
+            <span className="transform skew-x-12 block">Premium Logistics</span>
           </div>
           
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] mb-6 tracking-tight uppercase">
-            Get a Dedicated Dispatcher & <br />
-            <span className="text-primary">Higher Paying Loads.</span>
+          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black text-white leading-[0.95] mb-8 tracking-tighter uppercase drop-shadow-xl">
+            WE KEEP YOUR TRUCK <br />
+            <span className="text-primary block mt-2 drop-shadow-2xl">MOVING & EARNING.</span>
           </h1>
           
-          <p className="text-xl sm:text-2xl text-gray-200 mb-10 max-w-2xl font-sans border-l-4 border-primary pl-6">
-            Stop searching load boards and doing paperwork. We find the best rates, negotiate for you, and keep your truck moving so you can focus on driving.
+          <p className="text-xl sm:text-2xl text-white mb-12 max-w-2xl font-sans border-l-8 border-primary pl-6 bg-black/40 p-6 backdrop-blur-md shadow-lg">
+            Stop fighting with brokers. Our dedicated dispatchers negotiate the highest rates and handle the paperwork so you can focus on the road.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 mb-16">
-            <Button size="lg" className="text-lg px-8 py-7 rounded-sm shadow-[0_0_20px_rgba(249,115,22,0.3)] hover:shadow-[0_0_30px_rgba(249,115,22,0.5)] transition-all font-bold group" onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}>
+          <div className="flex flex-col sm:flex-row gap-6 mb-16">
+            <Button size="lg" className="text-xl px-12 py-8 bg-primary text-white hover:bg-white hover:text-[#0B3C5D] rounded-none transition-all duration-300 font-display font-bold tracking-widest uppercase group shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] hover:shadow-none hover:translate-y-1 hover:translate-x-1" onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}>
               Check Eligibility
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform" />
             </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8 py-7 rounded-sm bg-white/5 text-white border-white/20 hover:bg-white/10 backdrop-blur-md font-bold" onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>
+            <Button size="lg" variant="outline" className="text-xl px-12 py-8 rounded-none bg-transparent text-white border-4 border-white hover:bg-white hover:text-[#0B3C5D] transition-all duration-300 font-display font-bold tracking-widest uppercase shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] hover:shadow-none hover:translate-y-1 hover:translate-x-1" onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>
               See How It Works
             </Button>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-white/10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 border-t-2 border-white/20">
             {[
-              { icon: ShieldCheck, text: "Dedicated Dispatcher" },
-              { icon: TrendingUp, text: "No Forced Dispatch" },
-              { icon: PhoneCall, text: "24/7 Driver Support" },
-              { icon: CheckCircle2, text: "Keep More Revenue" },
+              { icon: ShieldCheck, text: "Dedicated Agent" },
+              { icon: TrendingUp, text: "Top Tier Rates" },
+              { icon: PhoneCall, text: "24/7 Support" },
+              { icon: CheckCircle2, text: "No Forced Dispatch" },
             ].map((badge, i) => (
-              <div key={i} className="flex items-center gap-3 text-white/90">
-                <badge.icon className="w-6 h-6 text-primary shrink-0" />
-                <span className="text-sm font-bold uppercase tracking-wide">{badge.text}</span>
+              <div key={i} className="flex items-center gap-4 text-white group cursor-default">
+                <div className="p-3 bg-primary/20 backdrop-blur-sm border-2 border-primary/50 group-hover:bg-primary transition-colors duration-300 transform -skew-x-6">
+                  <badge.icon className="w-8 h-8 text-primary group-hover:text-white shrink-0 transform skew-x-6 transition-colors duration-300" />
+                </div>
+                <span className="text-lg font-display font-bold uppercase tracking-wider leading-tight">{badge.text}</span>
               </div>
             ))}
           </div>

@@ -13,9 +13,9 @@ export default function Benefits() {
   ];
 
   return (
-    <section className="py-24 bg-secondary text-white relative overflow-hidden">
+    <section className="py-24 bg-[#0B3C5D] text-white relative overflow-hidden" id="benefits">
       {/* Decorative abstract shape */}
-      <div className="absolute top-0 right-0 -translate-y-12 translate-x-1/3 opacity-10 pointer-events-none">
+      <div className="absolute top-0 right-0 -translate-y-12 translate-x-1/3 opacity-5 pointer-events-none">
         <svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="400" cy="400" r="400" fill="currentColor"/>
         </svg>
@@ -24,36 +24,40 @@ export default function Benefits() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col lg:flex-row gap-16 items-center">
           <div className="w-full lg:w-1/2">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-              Why Drivers Choose Us
+            <div className="inline-flex items-center gap-3 px-4 py-1 mb-6 bg-primary text-white font-display font-bold text-sm tracking-widest uppercase transform -skew-x-12">
+              <span className="transform skew-x-12 block">The Advantage</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black mb-6 text-white uppercase tracking-tighter">
+              Why Drivers <span className="text-primary">Choose Us</span>
             </h2>
-            <p className="text-lg text-gray-300 mb-10 font-sans">
+            <p className="text-xl text-gray-300 mb-10 font-sans">
               We aren't just finding loads; we're building a profitable business together. Our success is directly tied to your success.
             </p>
 
-            <ul className="space-y-4">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {benefitsList.map((benefit, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center shrink-0 mt-0.5">
+                <li key={i} className="flex items-start gap-3 bg-white/5 p-4 border border-white/10 hover:border-primary/50 transition-colors">
+                  <div className="w-6 h-6 rounded-none bg-primary flex items-center justify-center shrink-0 mt-0.5">
                     <Check className="w-4 h-4 text-white" />
                   </div>
-                  <span className="text-lg text-gray-200 font-sans">{benefit}</span>
+                  <span className="text-base text-gray-200 font-bold uppercase tracking-wide">{benefit}</span>
                 </li>
               ))}
             </ul>
           </div>
 
           <div className="w-full lg:w-1/2">
-            <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-white/10 relative">
+            <div className="rounded-none overflow-hidden shadow-[20px_20px_0px_0px_rgba(249,115,22,1)] border-4 border-white relative">
               <img 
                 src="/src/assets/images/dispatcher.jpg" 
                 alt="Professional dispatcher working" 
-                className="w-full h-auto object-cover aspect-square"
+                className="w-full h-auto object-cover aspect-square filter grayscale contrast-125"
               />
-              <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-secondary to-transparent pt-32 pb-8 px-8">
-                <div className="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl text-white">
-                  <h4 className="font-bold text-xl mb-2">Meet Your New Partner</h4>
-                  <p className="text-sm text-gray-200 font-sans">Our dispatchers work strictly for you, acting as your personal agent in the freight market.</p>
+              <div className="absolute inset-0 bg-primary/20 mix-blend-multiply"></div>
+              <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-[#0B3C5D] to-transparent pt-32 pb-8 px-8">
+                <div className="bg-[#0B3C5D]/90 backdrop-blur-md border-l-4 border-primary p-6 text-white">
+                  <h4 className="font-black text-2xl mb-2 uppercase tracking-tight">Meet Your Partner</h4>
+                  <p className="text-base text-gray-300 font-sans">Our dispatchers work strictly for you, acting as your personal agent in the freight market.</p>
                 </div>
               </div>
             </div>

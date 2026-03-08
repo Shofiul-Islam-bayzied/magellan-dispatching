@@ -1,5 +1,4 @@
 import { Search, Map, ShieldCheck, FileCheck, DollarSign } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 
 export default function Solutions() {
   const solutions = [
@@ -33,37 +32,43 @@ export default function Solutions() {
   return (
     <section className="py-24 bg-white" id="solution">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-            Our Complete Dispatch Solution
+        <div className="text-center max-w-4xl mx-auto mb-20">
+          <div className="inline-flex items-center gap-3 px-4 py-1 mb-6 bg-gray-100 text-[#0B3C5D] font-display font-bold text-sm tracking-widest uppercase transform -skew-x-12">
+            <span className="transform skew-x-12 block">What We Do</span>
+          </div>
+          <h2 className="text-4xl md:text-6xl font-black text-foreground mb-6 uppercase tracking-tighter">
+            Our Complete <span className="text-primary">Dispatch</span> Solution
           </h2>
-          <p className="text-lg text-muted-foreground font-sans">
+          <p className="text-xl text-muted-foreground font-sans max-w-2xl mx-auto">
             We operate as your dedicated back-office team. You drive, we handle the rest. It's a partnership designed to maximize your revenue and minimize your stress.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-gray-200">
           {solutions.map((solution, i) => (
-            <Card key={i} className="border border-gray-100 shadow-md hover:shadow-xl transition-shadow duration-300">
-              <CardContent className="p-8">
-                <div className="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center mb-6">
-                  <solution.icon className="w-7 h-7 text-secondary" />
-                </div>
-                <h3 className="text-xl font-bold text-foreground mb-3">{solution.title}</h3>
-                <p className="text-muted-foreground font-sans">{solution.description}</p>
-              </CardContent>
-            </Card>
+            <div key={i} className="group relative bg-white border-b border-r border-gray-200 p-10 hover:bg-gray-50 transition-colors duration-300">
+              <div className="absolute top-0 left-0 w-full h-1 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+              
+              <div className="w-16 h-16 bg-[#0B3C5D] flex items-center justify-center mb-8 transform -skew-x-12 group-hover:bg-primary transition-colors duration-300">
+                <solution.icon className="w-8 h-8 text-white transform skew-x-12" />
+              </div>
+              <h3 className="text-2xl font-black text-foreground mb-4 uppercase tracking-tight">{solution.title}</h3>
+              <p className="text-muted-foreground font-sans text-lg">{solution.description}</p>
+            </div>
           ))}
           
-          <div className="bg-secondary rounded-xl p-8 text-white flex flex-col justify-center items-start shadow-lg">
-            <h3 className="text-2xl font-bold mb-4">Ready to upgrade your business?</h3>
-            <p className="text-secondary-foreground/80 mb-6 font-sans">Stop leaving money on the table and let professionals handle your dispatching.</p>
-            <button 
-              onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-primary text-white px-6 py-3 rounded-md font-bold hover:bg-primary/90 transition-colors w-full text-center"
-            >
-              Check Eligibility
-            </button>
+          <div className="bg-[#0B3C5D] p-10 text-white flex flex-col justify-center items-start border-b border-r border-[#0B3C5D] relative overflow-hidden group">
+            <div className="absolute inset-0 bg-primary transform scale-y-0 group-hover:scale-y-100 transition-transform duration-500 origin-bottom z-0"></div>
+            <div className="relative z-10">
+              <h3 className="text-3xl font-black mb-4 uppercase tracking-tighter">Ready to upgrade?</h3>
+              <p className="text-gray-300 mb-8 font-sans text-lg group-hover:text-white transition-colors">Stop leaving money on the table.</p>
+              <button 
+                onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
+                className="bg-white text-[#0B3C5D] px-8 py-4 font-display font-bold uppercase tracking-widest hover:bg-gray-100 transition-colors w-full text-center"
+              >
+                Check Eligibility
+              </button>
+            </div>
           </div>
         </div>
       </div>

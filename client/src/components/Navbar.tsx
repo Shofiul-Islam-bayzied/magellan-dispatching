@@ -19,30 +19,33 @@ export default function Navbar() {
 
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-white/10 ${
-        isScrolled ? "bg-[#0B3C5D] shadow-xl py-4" : "bg-transparent py-6"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b-4 ${
+        isScrolled ? "bg-[#0B3C5D] shadow-2xl py-2 border-primary" : "bg-transparent py-6 border-transparent"
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-primary rounded-sm flex items-center justify-center">
-              <Truck className="w-8 h-8 text-white" />
+            <div className="w-14 h-14 bg-primary flex items-center justify-center transform -skew-x-12 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.3)]">
+              <Truck className="w-8 h-8 text-white transform skew-x-12" />
             </div>
-            <span className="text-3xl font-black tracking-tighter text-white uppercase">
-              Dispatch<span className="text-primary">Pro</span>
-            </span>
+            <div className="flex flex-col">
+              <span className="text-3xl font-black tracking-tighter text-white uppercase leading-none drop-shadow-md">
+                Dispatch<span className="text-primary">Pro</span>
+              </span>
+              <span className="text-xs text-gray-300 font-bold tracking-[0.3em] uppercase leading-none mt-1">Logistics</span>
+            </div>
           </div>
 
-          <nav className="hidden md:flex items-center gap-10">
+          <nav className="hidden md:flex items-center gap-8">
             {["Problems", "Solution", "Benefits", "How It Works"].map((item) => (
               <button 
                 key={item}
                 onClick={() => document.getElementById(item.toLowerCase().replace(/\s+/g, '-'))?.scrollIntoView({ behavior: 'smooth' })}
-                className="text-sm font-bold uppercase tracking-widest text-white hover:text-primary transition-colors relative group"
+                className="text-sm font-black uppercase tracking-[0.15em] text-white hover:text-primary transition-colors relative group py-2"
               >
                 {item}
-                <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-1 bg-primary transition-all duration-300 group-hover:w-full"></span>
               </button>
             ))}
           </nav>
@@ -50,13 +53,13 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-4">
             <Button 
               onClick={scrollToBooking}
-              className="bg-primary text-white hover:bg-primary/90 font-bold px-8 py-6 rounded-sm uppercase tracking-wide text-sm shadow-[0_0_15px_rgba(249,115,22,0.3)]"
+              className="bg-primary text-white hover:bg-white hover:text-[#0B3C5D] font-black px-8 py-7 rounded-none uppercase tracking-[0.2em] text-sm transition-all duration-300 shadow-[5px_5px_0px_0px_rgba(0,0,0,0.5)] hover:shadow-none hover:translate-y-1 hover:translate-x-1 border-2 border-transparent hover:border-[#0B3C5D]"
             >
               Get Started
             </Button>
           </div>
           
-          <button className="md:hidden text-white">
+          <button className="md:hidden text-white bg-primary p-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)]">
             <Menu className="w-8 h-8" />
           </button>
         </div>
