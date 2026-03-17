@@ -9,10 +9,12 @@ import Testimonials from "@/components/sections/Testimonials";
 import Booking from "@/components/sections/Booking";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Analytics from "@/components/Analytics";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
+      <Analytics />
       <Navbar />
       <main>
         <Hero />

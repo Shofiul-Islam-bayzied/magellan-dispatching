@@ -1,106 +1,241 @@
+import { useRef, useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, PhoneCall, ShieldCheck, TrendingUp, ArrowRight, Play } from "lucide-react";
+import { CheckCircle2, PhoneCall, ShieldCheck, TrendingUp, ArrowRight, Volume2, VolumeX } from "lucide-react";
+import { fbTrack, gaTrack } from "@/lib/fbtrack";
+import heroTruckPoster from "@/assets/images/hero-truck.jpg";
 
-export default function Hero() {
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  show: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.1, duration: 0.5, ease: "easeOut" as const },
+  }),
+};
+
+const BADGES = [
+  { icon: ShieldCheck,  text: "Dedicated Agent"   },
+  { icon: TrendingUp,   text: "Top Tier Rates"     },
+  { icon: PhoneCall,    text: "24/7 Support"        },
+  { icon: CheckCircle2, text: "No Forced Dispatch"  },
+];
+
+function HeroVideo({
+  videoRef,
+  muted,
+  toggleMute,
+  onEnded,
+  isMobile = false,
+}: {
+  videoRef: React.RefObject<HTMLVideoElement | null>;
+  muted: boolean;
+  toggleMute: () => void;
+  onEnded: React.ReactEventHandler<HTMLVideoElement>;
+  isMobile?: boolean;
+}) {
   return (
-    <section className="relative pt-40 pb-32 lg:pt-56 lg:pb-48 overflow-hidden bg-[#0B3C5D]" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 90%, 0% 100%)' }}>
-      {/* Video Background with overlay */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[#0B3C5D]/60 mix-blend-multiply z-10" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0B3C5D] via-[#0B3C5D]/80 to-transparent z-10" />
-        {/* Abstract pattern overlay for industrial feel */}
-        <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiNmZmYiLz48L3N2Zz4=')] z-10" />
-        
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline 
-          poster="/src/assets/images/hero-truck.jpg"
-          className="w-full h-full object-cover"
-        >
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-semi-truck-driving-along-a-highway-42750-large.mp4" type="video/mp4" />
-          <img src="/src/assets/images/hero-truck.jpg" alt="Semi truck" className="w-full h-full object-cover" />
-        </video>
+    <div
+      className="relative w-full aspect-video overflow-hidden"
+      style={
+        isMobile
+          ? { border: "1px solid rgba(255,255,255,0.12)" }
+          : { boxShadow: "0 0 0 3px #F97316, 0 0 40px rgba(249,115,22,0.2), 0 20px 50px rgba(0,0,0,0.7)" }
+      }
+    >
+      <video
+        ref={videoRef}
+        src="/video/magellan-dispatch.mp4"
+        poster="/video/magellan-poster.jpg"
+        autoPlay muted playsInline preload="auto"
+        className="w-full h-full object-cover"
+        onEnded={onEnded}
+      />
+
+      {/* LIVE dot — top left */}
+      <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5 bg-black/60 px-2 py-1 z-20">
+        <span className="relative flex w-1.5 h-1.5">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+          <span className="relative inline-flex rounded-full w-1.5 h-1.5 bg-red-500" />
+        </span>
+        <span className="text-white text-[8px] font-bold uppercase tracking-widest">Live</span>
       </div>
 
-      {/* FreezPak inspired angled accent line */}
-      <div className="absolute bottom-0 left-0 w-full h-4 bg-primary z-20" style={{ transform: 'skewY(-3deg)', transformOrigin: 'bottom left', bottom: '-20px' }}></div>
+      {/* Mute toggle — top right, subtle */}
+      <button
+        onClick={toggleMute}
+        className="absolute top-2.5 right-2.5 flex items-center justify-center w-7 h-7 bg-black/60 text-white/80 hover:text-white hover:bg-black/80 transition-colors z-20"
+        aria-label={muted ? "Unmute video" : "Mute video"}
+      >
+        {muted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+      </button>
+
+      {/* Desktop corner brackets only */}
+      {!isMobile && (
+        <>
+          <div className="absolute top-0 left-0 w-7 h-7 border-t-[3px] border-l-[3px] border-primary z-20" />
+          <div className="absolute top-0 right-0 w-7 h-7 border-t-[3px] border-r-[3px] border-primary z-20" />
+          <div className="absolute bottom-0 left-0 w-7 h-7 border-b-[3px] border-l-[3px] border-primary z-20" />
+          <div className="absolute bottom-0 right-0 w-7 h-7 border-b-[3px] border-r-[3px] border-primary z-20" />
+        </>
+      )}
+    </div>
+  );
+}
+
+export default function Hero() {
+  // Single video ref — only ONE HeroVideo is ever mounted at a time.
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [muted, setMuted] = useState(true);
+
+  // Track breakpoint in JS so we can conditionally render only one video element.
+  // This is the only reliable way to guarantee no duplicate audio: two <video autoPlay>
+  // elements in the DOM will both play even when one is CSS-hidden.
+  const [isDesktop, setIsDesktop] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const handler = (e: MediaQueryListEvent) => {
+      setIsDesktop(e.matches);
+      // Reset mute state on breakpoint change so the newly mounted video starts muted.
+      setMuted(true);
+    };
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  // Defined in Hero so setMuted is in scope. Passed down as a prop to HeroVideo.
+  function handleVideoEnded(e: React.SyntheticEvent<HTMLVideoElement>) {
+    const v = e.currentTarget;
+    v.muted = true;
+    setMuted(true);
+    v.currentTime = 0;
+    v.play().catch(() => {});
+  }
+
+  function toggleMute() {
+    const newMuted = !muted;
+    setMuted(newMuted);
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = newMuted;
+    // Some browsers (iOS) pause video when muted state changes — resume if needed.
+    requestAnimationFrame(() => {
+      if (!v.paused) return;
+      v.play().catch(() => {
+        v.muted = true;
+        setMuted(true);
+      });
+    });
+  }
+
+  return (
+    <section
+      className="relative pt-[120px] pb-48 lg:pt-56 lg:pb-48 overflow-hidden bg-[#0B3C5D]"
+      style={{ clipPath: "polygon(0 0, 100% 0, 100% 90%, 0% 100%)" }}
+    >
+      {/* ── Background ─────────────────────────────────────── */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-[#0B3C5D]/65 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0B3C5D] via-[#0B3C5D]/80 to-transparent z-10" />
+        <div
+          className="absolute inset-0 opacity-[0.07] z-10"
+          style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1' fill='%23fff'/%3E%3C/svg%3E\")" }}
+        />
+        <img src={heroTruckPoster} alt="" className="w-full h-full object-cover" />
+      </div>
+
+      {/* ── Angled accent ───────────────────────────────────── */}
+      <div className="absolute bottom-0 left-0 w-full h-1 bg-primary z-20" />
 
       <div className="container relative z-20 mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-8 items-center">
-          <div className="w-full lg:w-[55%]">
-            <div className="inline-flex items-center gap-3 px-6 py-2 mb-8 bg-primary text-white font-display font-bold text-lg tracking-[0.2em] uppercase transform -skew-x-12 shadow-[5px_5px_0px_0px_rgba(0,0,0,0.3)]">
-              <span className="transform skew-x-12 block">Premium Logistics</span>
-            </div>
-            
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-black text-white leading-[0.95] mb-6 sm:mb-8 tracking-tighter uppercase drop-shadow-xl">
-              WE KEEP YOUR TRUCK <br />
-              <span className="text-primary block mt-2 drop-shadow-2xl">MOVING & EARNING.</span>
-            </h1>
-            
-            <p className="text-base sm:text-xl md:text-2xl text-white mb-8 sm:mb-12 max-w-2xl font-sans border-l-4 sm:border-l-8 border-primary pl-4 sm:pl-6 bg-black/40 p-4 sm:p-6 backdrop-blur-md shadow-lg">
-              Stop fighting with brokers. Our dedicated dispatchers negotiate the highest rates and handle the paperwork so you can focus on the road.
-            </p>
+        <div className="flex flex-col lg:flex-row lg:gap-12 items-start lg:items-center">
 
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mb-12 sm:mb-16">
-              <Button size="lg" className="text-base sm:text-xl px-6 py-6 sm:px-10 sm:py-8 bg-primary text-white hover:bg-white hover:text-[#0B3C5D] rounded-none transition-all duration-300 font-display font-bold tracking-widest uppercase group shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] hover:shadow-none hover:translate-y-1 hover:translate-x-1" onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}>
-                Check Eligibility
-                <ArrowRight className="ml-2 sm:ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform" />
+          {/* ── TEXT COLUMN ─────────────────────────────────── */}
+          <div className="w-full lg:w-[55%] order-1">
+
+            {/* Desktop-only badge */}
+            <motion.div custom={0} variants={fadeUp} initial="hidden" animate="show" className="hidden lg:block mb-8">
+              <div className="inline-flex items-center gap-2 px-5 py-2 bg-primary text-white font-bold text-sm tracking-[0.2em] uppercase transform -skew-x-12">
+                <span className="transform skew-x-12 block">Premium Logistics</span>
+              </div>
+            </motion.div>
+
+            {/* Headline */}
+            <motion.h1
+              custom={1} variants={fadeUp} initial="hidden" animate="show"
+              className="text-[2.1rem] leading-[0.93] sm:text-6xl lg:text-7xl xl:text-8xl font-black text-white mb-4 sm:mb-6 tracking-tighter uppercase"
+            >
+              WE KEEP YOUR TRUCK
+              <span className="text-primary block mt-1">MOVING & EARNING.</span>
+            </motion.h1>
+
+            {/* Description */}
+            <motion.p
+              custom={2} variants={fadeUp} initial="hidden" animate="show"
+              className="text-sm sm:text-xl md:text-2xl text-white/70 mb-5 sm:mb-10 max-w-2xl font-sans border-l-2 border-primary/60 pl-3 sm:pl-5 leading-relaxed"
+            >
+              Stop fighting with brokers. Our dispatchers negotiate the highest rates so you can focus on the road.
+            </motion.p>
+
+            {/* ── Video — mobile only, between description and CTA ── */}
+            {!isDesktop && (
+              <motion.div custom={3} variants={fadeUp} initial="hidden" animate="show" className="mb-5">
+                <HeroVideo videoRef={videoRef} muted={muted} toggleMute={toggleMute} onEnded={handleVideoEnded} isMobile />
+              </motion.div>
+            )}
+
+            {/* CTA */}
+            <motion.div custom={4} variants={fadeUp} initial="hidden" animate="show" className="mb-8 sm:mb-12">
+              <Button
+                size="lg"
+                onClick={() => {
+                  document.getElementById("calendly-widget")?.scrollIntoView({ behavior: "smooth" });
+                  fbTrack("Lead", { content_name: "Hero CTA" });
+                  gaTrack("generate_lead", { method: "Hero CTA" });
+                }}
+                className="w-full sm:w-auto text-sm sm:text-xl px-8 py-4 sm:px-10 sm:py-8 bg-primary text-white hover:bg-white hover:text-[#0B3C5D] rounded-none transition-all duration-300 font-bold tracking-[0.15em] uppercase group"
+                style={{ boxShadow: "3px 3px 0 0 rgba(0,0,0,0.4)" }}
+              >
+                Book a Free Call
+                <ArrowRight className="ml-2 w-4 h-4 sm:w-6 sm:h-6 group-hover:translate-x-1 transition-transform" />
               </Button>
-            </div>
+            </motion.div>
 
-            <div className="grid grid-cols-2 gap-4 sm:gap-6 pt-8 sm:pt-10 border-t-2 border-white/20 max-w-xl">
-              {[
-                { icon: ShieldCheck, text: "Dedicated Agent" },
-                { icon: TrendingUp, text: "Top Tier Rates" },
-                { icon: PhoneCall, text: "24/7 Support" },
-                { icon: CheckCircle2, text: "No Forced Dispatch" },
-              ].map((badge, i) => (
-                <div key={i} className="flex items-center gap-3 sm:gap-4 text-white group cursor-default">
-                  <div className="p-2 sm:p-3 bg-primary/20 backdrop-blur-sm border-2 border-primary/50 group-hover:bg-primary transition-colors duration-300 transform -skew-x-6">
-                    <badge.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary group-hover:text-white shrink-0 transform skew-x-6 transition-colors duration-300" />
+            {/* Feature badges */}
+            <motion.div custom={5} variants={fadeUp} initial="hidden" animate="show" className="pt-5 sm:pt-8 border-t border-white/10">
+              {/* Mobile: 2x2 grid */}
+              <div className="grid grid-cols-2 gap-2 lg:hidden">
+                {BADGES.map((badge, i) => (
+                  <div key={i} className="flex items-center gap-2.5 py-2">
+                    <badge.icon className="w-4 h-4 text-primary flex-shrink-0" />
+                    <span className="text-[11px] font-bold text-white/80 uppercase tracking-wide leading-tight">{badge.text}</span>
                   </div>
-                  <span className="text-sm sm:text-base font-display font-bold uppercase tracking-wider leading-tight">{badge.text}</span>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+              {/* Desktop: 2-col with icon boxes */}
+              <div className="hidden lg:grid grid-cols-2 gap-5 max-w-xl">
+                {BADGES.map((badge, i) => (
+                  <div key={i} className="flex items-center gap-3 text-white group cursor-default">
+                    <div className="p-2.5 bg-primary/20 border border-primary/40 group-hover:bg-primary transition-colors duration-300 transform -skew-x-6 flex-shrink-0">
+                      <badge.icon className="w-5 h-5 text-primary group-hover:text-white transform skew-x-6 transition-colors duration-300" />
+                    </div>
+                    <span className="text-sm font-bold uppercase tracking-wider">{badge.text}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
           </div>
 
-          <div className="w-full lg:w-[45%] hidden lg:block">
-            <div className="flex flex-col items-center text-center mt-4">
-              <div className="inline-flex items-center px-4 py-1 mb-6 bg-[#F97316] text-white font-display font-bold text-xs tracking-widest uppercase transform -skew-x-12">
-                <span className="transform skew-x-12 block">See Inside</span>
-              </div>
-              <h2 className="text-2xl lg:text-3xl xl:text-5xl font-black text-white mb-4 uppercase tracking-tighter leading-tight drop-shadow-md">
-                Watch How We <span className="text-[#F97316]">Scale</span> Your Business
-              </h2>
-              <p className="text-sm lg:text-base text-gray-200 font-sans px-2 mb-8 max-w-md">
-                Take 90 seconds to see exactly how our dedicated dispatchers operate to keep your trucks moving and your revenue growing.
-              </p>
-              
-              {/* Integrated Video Component on the right side */}
-              <div className="relative w-full max-w-lg bg-black aspect-video shadow-[0_0_50px_rgba(0,0,0,0.5)] border-2 border-black group cursor-pointer overflow-hidden transform hover:scale-[1.02] transition-transform duration-500" onClick={() => document.getElementById('video-section')?.scrollIntoView({ behavior: 'smooth' })}>
-                <img 
-                  src="/src/assets/images/hero-truck.jpg" 
-                  alt="Video thumbnail" 
-                  className="absolute inset-0 w-full h-full object-cover opacity-80 filter grayscale contrast-125 transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/20 transition-opacity duration-300 group-hover:opacity-0"></div>
-                
-                {/* Central Play Button */}
-                <div className="absolute inset-0 flex items-center justify-center z-20">
-                  <div className="w-16 h-16 xl:w-20 xl:h-20 bg-[#F97316] text-white flex items-center justify-center transform transition-transform duration-300 group-hover:scale-110">
-                    <Play className="w-8 h-8 xl:w-10 xl:h-10 ml-1 fill-current" />
-                  </div>
-                </div>
-                
-                <div className="absolute bottom-4 left-4 xl:bottom-6 xl:left-6 bg-[#F97316] px-4 py-2 xl:px-5 xl:py-2.5 text-white font-bold uppercase tracking-[0.1em] text-[10px] xl:text-xs z-20">
-                  Explainer Video Placeholder
-                </div>
-              </div>
+          {/* ── VIDEO COLUMN — desktop only ─────────────────── */}
+          {isDesktop && (
+            <div className="w-full lg:w-[45%] order-2">
+              <HeroVideo videoRef={videoRef} muted={muted} toggleMute={toggleMute} onEnded={handleVideoEnded} />
             </div>
-          </div>
+          )}
+
         </div>
       </div>
     </section>

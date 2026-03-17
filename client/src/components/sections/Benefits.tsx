@@ -1,4 +1,5 @@
 import { Check } from "lucide-react";
+import dispatcherImg from "@/assets/images/dispatcher.webp";
 
 export default function Benefits() {
   const benefitsList = [
@@ -13,7 +14,7 @@ export default function Benefits() {
   ];
 
   return (
-    <section className="py-24 bg-[#0B3C5D] text-white relative overflow-hidden" id="benefits">
+    <section className="py-20 lg:py-28 bg-[#0B3C5D] text-white relative overflow-hidden" id="benefits">
       {/* Decorative abstract shape */}
       <div className="absolute top-0 right-0 -translate-y-12 translate-x-1/3 opacity-5 pointer-events-none">
         <svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -22,12 +23,12 @@ export default function Benefits() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-12 sm:gap-16 items-center">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center">
           <div className="w-full lg:w-1/2">
             <div className="inline-flex items-center gap-3 px-4 py-1 mb-6 bg-primary text-white font-display font-bold text-sm tracking-widest uppercase transform -skew-x-12">
               <span className="transform skew-x-12 block">The Advantage</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 sm:mb-6 text-white uppercase tracking-tighter leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-4 sm:mb-6 text-white uppercase tracking-tighter leading-tight">
               Why Drivers <span className="text-primary">Choose Us</span>
             </h2>
             <p className="text-lg sm:text-xl text-gray-300 mb-8 sm:mb-10 font-sans">
@@ -47,10 +48,12 @@ export default function Benefits() {
           </div>
 
           <div className="w-full lg:w-1/2">
-            <div className="rounded-none overflow-hidden shadow-[20px_20px_0px_0px_rgba(249,115,22,1)] border-4 border-white relative">
-              <img 
-                src="/src/assets/images/dispatcher.jpg" 
-                alt="Professional dispatcher working" 
+            <div className="rounded-none overflow-hidden shadow-[8px_8px_0_0_rgba(249,115,22,0.8)] border-4 border-white relative">
+              <img
+                src={dispatcherImg}
+                alt="Happy truck driver standing in front of his truck — Magellan Dispatching owner-operator success story"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-auto object-cover aspect-square filter grayscale contrast-125"
               />
               <div className="absolute inset-0 bg-primary/20 mix-blend-multiply"></div>

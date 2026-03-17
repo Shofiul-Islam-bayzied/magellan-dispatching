@@ -1,4 +1,5 @@
 import { Search, Map, ShieldCheck, FileCheck, DollarSign } from "lucide-react";
+import { fbTrack, gaTrack } from "@/lib/fbtrack";
 
 export default function Solutions() {
   const solutions = [
@@ -30,16 +31,16 @@ export default function Solutions() {
   ];
 
   return (
-    <section className="py-24 bg-white" id="solution">
+    <section className="py-20 lg:py-28 bg-[#F8F9FA]" id="solution">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-4xl mx-auto mb-16 sm:mb-20">
-          <div className="inline-flex items-center gap-3 px-4 py-1 mb-6 bg-gray-100 text-[#0B3C5D] font-display font-bold text-sm tracking-widest uppercase transform -skew-x-12">
+          <div className="inline-flex items-center gap-3 px-4 py-1 mb-6 bg-[#0B3C5D] text-white font-display font-bold text-sm tracking-widest uppercase transform -skew-x-12">
             <span className="transform skew-x-12 block">What We Do</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-foreground mb-4 sm:mb-6 uppercase tracking-tighter">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-foreground mb-4 sm:mb-6 uppercase tracking-tighter">
             Our Complete <span className="text-primary">Dispatch</span> Solution
           </h2>
-          <p className="text-lg sm:text-xl text-muted-foreground font-sans max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-muted-foreground font-sans max-w-2xl mx-auto leading-relaxed">
             We operate as your dedicated back-office team. You drive, we handle the rest. It's a partnership designed to maximize your revenue and minimize your stress.
           </p>
         </div>
@@ -63,10 +64,14 @@ export default function Solutions() {
               <h3 className="text-2xl sm:text-3xl font-black mb-3 sm:mb-4 uppercase tracking-tighter">Ready to upgrade?</h3>
               <p className="text-sm sm:text-lg text-gray-300 mb-6 sm:mb-8 font-sans group-hover:text-white transition-colors">Stop leaving money on the table.</p>
               <button 
-                onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => {
+                  document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
+                  fbTrack("Lead", { content_name: "Solutions CTA" });
+                  gaTrack("generate_lead", { method: "Solutions CTA" });
+                }}
                 className="bg-white text-[#0B3C5D] px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base font-display font-bold uppercase tracking-widest hover:bg-gray-100 transition-colors w-full text-center"
               >
-                Check Eligibility
+                Book a Free Call
               </button>
             </div>
           </div>

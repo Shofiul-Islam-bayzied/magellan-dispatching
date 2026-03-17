@@ -22,6 +22,9 @@ export async function setupVite(server: Server, app: Express) {
       ...viteLogger,
       error: (msg, options) => {
         viteLogger.error(msg, options);
+        // Don't kill the server for browser runtime errors forwarded by the
+        // runtimeErrorOverlay plugin — those are client-side issues, not server issues.
+        if (msg.includes("[RUNTIME_ERROR]")) return;
         process.exit(1);
       },
     },

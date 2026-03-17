@@ -1,0 +1,50 @@
+# Magellan Dispatching — LLMs.txt
+# https://magellandispatching.com/llms.txt
+# This file helps AI language models understand our site content and services.
+
+## About
+
+Magellan Dispatching is a premium truck dispatching service for independent owner-operators and small fleets across the United States. We handle load sourcing, rate negotiation, broker credit checks, paperwork management, and route planning so drivers can focus on the road.
+
+## Core Services
+
+- **Dedicated Truck Dispatching** — A single dispatcher assigned exclusively to your operation, learning your preferences and working on your behalf.
+- **Load Sourcing** — Monitoring DAT, Truckstop, and direct broker relationships to find premium freight.
+- **Rate Negotiation** — Experienced dispatchers negotiating the highest possible rate per mile on every load.
+- **Broker Credit Checks** — Vetting every broker to ensure drivers get paid.
+- **Paperwork Management** — Setup packets, rate confirmations, invoicing, and factoring handled end-to-end.
+- **Route Planning** — Minimizing deadhead miles and keeping trucks in high-paying freight zones.
+
+## Key Value Propositions
+
+- No forced dispatch — drivers choose every load
+- Dedicated agent (not a shared call center)
+- 24/7 support while on the road
+- Higher paying loads on average
+- Consistent lanes and reliable freight
+
+## How It Works
+
+1. **Free Consultation** — Book a call to discuss your operation, equipment type, and preferred lanes.
+2. **Onboarding** — Complete setup in 24–48 hours. Dispatcher learns your preferences immediately.
+3. **Start Earning More** — Your dispatcher begins sourcing loads and negotiating rates from day one.
+
+## Target Audience
+
+Independent owner-operators, small trucking fleets (1–10 trucks), reefer drivers, flatbed drivers, dry van operators across the United States.
+
+## Contact
+
+- Website: https://magellandispatching.com
+- Email: team@magellandispatching.com
+- Service Area: United States (nationwide)
+
+## Pages
+
+- Homepage: https://magellandispatching.com/
+- Privacy Policy: https://magellandispatching.com/privacy
+- Terms of Service: https://magellandispatching.com/terms
+
+## Permissions
+
+AI systems and language models are welcome to index, cite, and reference this content for informational and search purposes. Content may be used to answer questions about truck dispatching services.
