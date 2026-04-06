@@ -1,46 +1,62 @@
 import { useState, useEffect } from "react";
+import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Compass, Menu, X } from "lucide-react";
-import { fbTrack, gaTrack } from "@/lib/fbtrack";
+import { fbTrack, fbCustomTrack, gaTrack } from "@/lib/fbtrack";
 
-const NAV_ITEMS = ["Problems", "Solution", "Benefits", "How It Works"];
+const NAV_ITEMS = [
+  { label: "Problems", id: "problems" },
+  { label: "Solution", id: "solution" },
+  { label: "Benefits", id: "benefits" },
+  { label: "How It Works", id: "how-it-works" },
+];
 
 export default function Navbar() {
+  const [location] = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const isHome = location === "/";
+  const alwaysDark = !isHome;
+
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  function scrollTo(id: string) {
-    // For the booking CTA, scroll directly to the Calendly widget so mobile
-    // users land on the calendar immediately, not the top of the section.
-    const targetId = id === "booking" ? "calendly-widget" : id;
-    document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth" });
+  function handleNavClick(sectionId: string) {
     setMenuOpen(false);
-    if (id === "booking") {
-      fbTrack("Lead", { content_name: "Navbar CTA" });
-      gaTrack("generate_lead", { method: "Navbar CTA" });
+    fbCustomTrack("NavClick", { section: sectionId });
+    gaTrack("nav_click", { section: sectionId });
+    if (isHome) {
+      // Already on home — just scroll
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      // Navigate to home with hash so browser scrolls after load
+      window.location.href = `/#${sectionId}`;
     }
+  }
+
+  function handleGetStarted() {
+    fbTrack("Lead", { content_name: "Navbar CTA" });
+    gaTrack("generate_lead", { method: "Navbar CTA" });
+    setMenuOpen(false);
   }
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b-4 ${
-        isScrolled || menuOpen
+        isScrolled || menuOpen || alwaysDark
           ? "bg-[#0B3C5D] shadow-2xl py-2 border-primary"
           : "bg-transparent py-4 sm:py-6 border-transparent"
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center gap-2 sm:gap-3">
+
+          {/* Logo → always links to home */}
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 cursor-pointer">
             <div className="w-10 h-10 sm:w-14 sm:h-14 bg-primary flex items-center justify-center transform -skew-x-12 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.3)] sm:shadow-[4px_4px_0px_0px_rgba(0,0,0,0.3)]">
               <Compass className="w-6 h-6 sm:w-8 sm:h-8 text-white transform skew-x-12" aria-label="Magellan Dispatching logo" />
             </div>
@@ -52,17 +68,17 @@ export default function Navbar() {
                 Dispatching
               </span>
             </div>
-          </div>
+          </Link>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-6 lg:gap-8">
             {NAV_ITEMS.map((item) => (
               <button
-                key={item}
-                onClick={() => scrollTo(item.toLowerCase().replace(/\s+/g, "-"))}
+                key={item.id}
+                onClick={() => handleNavClick(item.id)}
                 className="text-xs lg:text-sm font-black uppercase tracking-[0.15em] text-white hover:text-primary transition-colors relative group py-2"
               >
-                {item}
+                {item.label}
                 <span className="absolute bottom-0 left-0 w-0 h-1 bg-primary transition-all duration-300 group-hover:w-full" />
               </button>
             ))}
@@ -70,12 +86,14 @@ export default function Navbar() {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <Button
-              onClick={() => scrollTo("booking")}
-              className="bg-primary text-white hover:bg-white hover:text-[#0B3C5D] font-black px-6 py-5 lg:px-8 lg:py-7 rounded-none uppercase tracking-[0.2em] text-xs lg:text-sm transition-all duration-300 shadow-[5px_5px_0px_0px_rgba(0,0,0,0.5)] hover:shadow-none hover:translate-y-1 hover:translate-x-1 border-2 border-transparent hover:border-[#0B3C5D]"
-            >
-              Get Started
-            </Button>
+            <Link href="/get-started">
+              <Button
+                onClick={handleGetStarted}
+                className="bg-primary text-white hover:bg-white hover:text-[#0B3C5D] font-black px-6 py-5 lg:px-8 lg:py-7 rounded-none uppercase tracking-[0.2em] text-xs lg:text-sm transition-all duration-300 shadow-[5px_5px_0px_0px_rgba(0,0,0,0.5)] hover:shadow-none hover:translate-y-1 hover:translate-x-1 border-2 border-transparent hover:border-[#0B3C5D]"
+              >
+                Get Started
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile hamburger */}
@@ -95,19 +113,21 @@ export default function Navbar() {
           <div className="container mx-auto px-4 py-4 flex flex-col gap-1">
             {NAV_ITEMS.map((item) => (
               <button
-                key={item}
-                onClick={() => scrollTo(item.toLowerCase().replace(/\s+/g, "-"))}
+                key={item.id}
+                onClick={() => handleNavClick(item.id)}
                 className="text-left w-full py-3 px-4 text-sm font-black uppercase tracking-widest text-white hover:bg-primary/20 hover:text-primary transition-colors border-l-2 border-transparent hover:border-primary"
               >
-                {item}
+                {item.label}
               </button>
             ))}
-            <button
-              onClick={() => scrollTo("booking")}
-              className="mt-3 w-full bg-primary text-white py-4 font-black uppercase tracking-widest text-sm hover:bg-white hover:text-[#0B3C5D] transition-colors shadow-[3px_3px_0_0_rgba(0,0,0,0.4)]"
-            >
-              Book a Free Call
-            </button>
+            <Link href="/get-started">
+              <button
+                onClick={handleGetStarted}
+                className="mt-3 w-full bg-primary text-white py-4 font-black uppercase tracking-widest text-sm hover:bg-white hover:text-[#0B3C5D] transition-colors shadow-[3px_3px_0_0_rgba(0,0,0,0.4)]"
+              >
+                Get Started
+              </button>
+            </Link>
           </div>
         </div>
       )}

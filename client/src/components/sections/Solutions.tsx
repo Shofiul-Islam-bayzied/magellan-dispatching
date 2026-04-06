@@ -65,9 +65,9 @@ export default function Solutions() {
               <p className="text-sm sm:text-lg text-gray-300 mb-6 sm:mb-8 font-sans group-hover:text-white transition-colors">Stop leaving money on the table.</p>
               <button 
                 onClick={() => {
-                  document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
                   fbTrack("Lead", { content_name: "Solutions CTA" });
                   gaTrack("generate_lead", { method: "Solutions CTA" });
+                  window.location.href = "/get-started";
                 }}
                 className="bg-white text-[#0B3C5D] px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base font-display font-bold uppercase tracking-widest hover:bg-gray-100 transition-colors w-full text-center"
               >

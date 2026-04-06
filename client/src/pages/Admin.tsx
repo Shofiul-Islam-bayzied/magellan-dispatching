@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-import { Compass, LogOut, Phone, Mail, MapPin, Calendar, BarChart3, Key, Save, Eye, EyeOff, Check } from "lucide-react";
+import { Compass, LogOut, Phone, Mail, Calendar, BarChart3, Key, Save, Eye, EyeOff, Check, Users, Download } from "lucide-react";
 import { apiRequest, getQueryFn } from "@/lib/queryClient";
 import type { PublicSettings, ContactSettings, CalendlySettings, AnalyticsSettings } from "@shared/schema";
 
@@ -381,6 +381,117 @@ function PasswordSection() {
   );
 }
 
+// ── Leads Section ─────────────────────────────────────────────────────────────
+
+interface Lead {
+  name: string;
+  email: string;
+  phone: string;
+  trucks: string;
+  timestamp: string;
+}
+
+function LeadsSection() {
+  const { data: leads = [], isLoading } = useQuery<Lead[]>({
+    queryKey: ["/api/admin/leads"],
+    queryFn: getQueryFn({ on401: "returnNull" }),
+  });
+
+  function downloadCSV() {
+    const header = ["Date", "Name", "Email", "Phone", "Truck Type"];
+    const rows = leads.map((l) => [
+      new Date(l.timestamp).toLocaleString(),
+      l.name, l.email, l.phone, l.trucks,
+    ]);
+    const csv = [header, ...rows].map((r) => r.map((v) => `"${v}"`).join(",")).join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `leads-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-48">
+        <span className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <span className="bg-primary/15 text-primary font-black text-sm px-3 py-1 uppercase tracking-widest">
+            {leads.length} lead{leads.length !== 1 ? "s" : ""}
+          </span>
+        </div>
+        {leads.length > 0 && (
+          <button
+            onClick={downloadCSV}
+            className="flex items-center gap-2 px-4 py-2 bg-[#0f1f2f] border border-[#1e3a52] text-gray-300 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"
+          >
+            <Download className="w-3.5 h-3.5" />
+            Export CSV
+          </button>
+        )}
+      </div>
+
+      {leads.length === 0 ? (
+        <div className="bg-[#0f1f2f] border border-[#1e3a52] p-12 text-center">
+          <Users className="w-10 h-10 text-gray-600 mx-auto mb-3" />
+          <p className="text-gray-500 text-sm">No leads yet. Form submissions will appear here.</p>
+        </div>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm border-collapse">
+            <thead>
+              <tr className="bg-[#0f1f2f] border-b border-[#1e3a52]">
+                {["Date", "Name", "Email", "Phone", "Truck Type"].map((h) => (
+                  <th key={h} className="text-left px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-gray-500">
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {leads.map((lead, i) => (
+                <tr
+                  key={i}
+                  className="border-b border-[#1e3a52] hover:bg-white/5 transition-colors"
+                >
+                  <td className="px-4 py-3 text-gray-500 text-xs whitespace-nowrap">
+                    {new Date(lead.timestamp).toLocaleString()}
+                  </td>
+                  <td className="px-4 py-3 text-white font-medium">{lead.name}</td>
+                  <td className="px-4 py-3 text-gray-300">
+                    <a href={`mailto:${lead.email}`} className="hover:text-primary transition-colors">
+                      {lead.email}
+                    </a>
+                  </td>
+                  <td className="px-4 py-3 text-gray-300">
+                    <a href={`tel:${lead.phone}`} className="hover:text-primary transition-colors">
+                      {lead.phone}
+                    </a>
+                  </td>
+                  <td className="px-4 py-3">
+                    <span className="bg-primary/15 text-primary text-xs font-bold px-2 py-0.5 uppercase tracking-wide">
+                      {lead.trucks || "—"}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Login ─────────────────────────────────────────────────────────────────────
 
 function LoginForm({ onLogin }: { onLogin: () => void }) {
@@ -467,9 +578,10 @@ function LoginForm({ onLogin }: { onLogin: () => void }) {
 
 // ── Dashboard ─────────────────────────────────────────────────────────────────
 
-type Tab = "contact" | "calendly" | "analytics" | "password";
+type Tab = "leads" | "contact" | "calendly" | "analytics" | "password";
 
 const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
+  { id: "leads", label: "Leads", icon: <Users className="w-4 h-4" /> },
   { id: "contact", label: "Contact Info", icon: <Phone className="w-4 h-4" /> },
   { id: "calendly", label: "Calendly", icon: <Calendar className="w-4 h-4" /> },
   { id: "analytics", label: "Analytics", icon: <BarChart3 className="w-4 h-4" /> },
@@ -477,7 +589,7 @@ const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
 ];
 
 function Dashboard({ onLogout }: { onLogout: () => void }) {
-  const [activeTab, setActiveTab] = useState<Tab>("contact");
+  const [activeTab, setActiveTab] = useState<Tab>("leads");
 
   const { data: settings, isLoading } = useQuery<AdminSettings>({
     queryKey: ["/api/admin/settings"],
@@ -554,6 +666,15 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
             <p className="text-red-400">Failed to load settings.</p>
           ) : (
             <>
+              {activeTab === "leads" && (
+                <Section
+                  title="Leads"
+                  description="All form submissions from the Get Started page. Newest first."
+                  icon={<Users className="w-5 h-5 text-primary" />}
+                >
+                  <LeadsSection />
+                </Section>
+              )}
               {activeTab === "contact" && (
                 <Section
                   title="Contact Information"

@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express, { type Request, Response, NextFunction } from "express";
 import session from "express-session";
 import MemoryStore from "memorystore";
@@ -43,7 +44,8 @@ app.use(
       checkPeriod: 86400000, // prune expired entries every 24h
     }),
     cookie: {
-      secure: process.env.NODE_ENV === "production",
+      // secure cookies only when running behind HTTPS (not plain localhost)
+      secure: process.env.NODE_ENV === "production" && process.env.TRUST_PROXY === "1",
       httpOnly: true,
       sameSite: "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days

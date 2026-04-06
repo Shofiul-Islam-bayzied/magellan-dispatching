@@ -7,3 +7,7 @@ vite.config.ts.*
 
 # Runtime data — contains admin password and analytics IDs
 data/
+
+# Environment variables — contains secret credentials, never commit
+.env
+*.json.key

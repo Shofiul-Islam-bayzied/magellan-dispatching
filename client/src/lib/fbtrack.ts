@@ -1,4 +1,4 @@
-/** Safe Facebook Pixel event helper. */
+/** Safe Facebook Pixel — standard event (PageView, Lead, Schedule, etc.) */
 export function fbTrack(event: string, params?: Record<string, unknown>) {
   try {
     const fbq = (window as any).fbq;
@@ -7,6 +7,18 @@ export function fbTrack(event: string, params?: Record<string, unknown>) {
     }
   } catch {
     // silently ignore if pixel isn't loaded
+  }
+}
+
+/** Safe Facebook Pixel — custom event (trackCustom) */
+export function fbCustomTrack(event: string, params?: Record<string, unknown>) {
+  try {
+    const fbq = (window as any).fbq;
+    if (typeof fbq === "function") {
+      params ? fbq("trackCustom", event, params) : fbq("trackCustom", event);
+    }
+  } catch {
+    // silently ignore
   }
 }
 
@@ -44,4 +56,15 @@ export function clarityEvent(eventName: string) {
   } catch {
     // silently ignore
   }
+}
+
+/** Fire the same event across FB + GA4 + Clarity simultaneously. */
+export function trackAll(
+  fbEvent: string,
+  gaEvent: string,
+  params?: Record<string, unknown>
+) {
+  fbTrack(fbEvent, params);
+  gaTrack(gaEvent, params);
+  clarityEvent(gaEvent);
 }

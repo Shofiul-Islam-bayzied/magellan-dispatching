@@ -1,6 +1,7 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
-import { loadSettings, saveSettings } from "./storage.js";
+import { loadSettings, saveSettings, saveLead, getLeads } from "./storage.js";
+import { appendLeadToSheet } from "./sheets.js";
 import { settingsSchema } from "../shared/schema.js";
 
 // Simple in-memory rate limiter for login attempts
@@ -37,6 +38,46 @@ export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
+  // Lead form submission (public)
+  app.post("/api/leads", async (req, res) => {
+    const { name, email, phone, trucks, website } = req.body as {
+      name?: string;
+      email?: string;
+      phone?: string;
+      trucks?: string;
+      website?: string;
+    };
+    // Honeypot — bots fill this field, humans don't
+    if (website) {
+      return res.json({ success: true }); // Silently discard
+    }
+    if (!name?.trim() || !email?.trim() || !phone?.trim()) {
+      return res.status(400).json({ message: "Name, email, and phone are required." });
+    }
+
+    const lead = {
+      name: name.trim(),
+      email: email.trim(),
+      phone: phone.trim(),
+      trucks: trucks?.trim() ?? "",
+      timestamp: new Date().toISOString(),
+    };
+
+    // Save locally (always works, backup)
+    saveLead(lead);
+
+    // Forward to Google Sheets via service account (non-blocking)
+    appendLeadToSheet({
+      name: lead.name,
+      email: lead.email,
+      phone: lead.phone,
+      truckType: lead.trucks,
+      timestamp: lead.timestamp,
+    }).catch((err) => console.error("[Sheets] Failed to append lead:", err.message));
+
+    return res.json({ success: true });
+  });
+
   // Public settings (no password exposed)
   app.get("/api/public/settings", (_req, res) => {
     const settings = loadSettings();
@@ -75,6 +116,12 @@ export async function registerRoutes(
     req.session.destroy(() => {
       res.json({ success: true });
     });
+  });
+
+  // Get all leads (protected)
+  app.get("/api/admin/leads", requireAdmin, (_req, res) => {
+    const leads = getLeads();
+    res.json(leads.slice().reverse()); // Newest first
   });
 
   // Get all settings (protected) — password stripped from response

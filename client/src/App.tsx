@@ -1,5 +1,7 @@
 import { lazy, Suspense } from "react";
 import Home from "@/pages/Home";
+const Schedule = lazy(() => import("@/pages/Schedule"));
+const GetStarted = lazy(() => import("@/pages/GetStarted"));
 const Admin = lazy(() => import("@/pages/Admin"));
 const Privacy = lazy(() => import("@/pages/Privacy"));
 const Terms = lazy(() => import("@/pages/Terms"));
@@ -15,6 +17,8 @@ function Router() {
     <Suspense fallback={null}>
       <Switch>
         <Route path="/" component={Home} />
+        <Route path="/get-started" component={GetStarted} />
+        <Route path="/schedule" component={Schedule} />
         <Route path="/admin" component={Admin} />
         <Route path="/privacy" component={Privacy} />
         <Route path="/terms" component={Terms} />

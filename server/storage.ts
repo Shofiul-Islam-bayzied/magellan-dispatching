@@ -4,6 +4,7 @@ import { Settings, defaultSettings } from "../shared/schema.js";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const SETTINGS_FILE = path.join(DATA_DIR, "settings.json");
+const LEADS_FILE = path.join(DATA_DIR, "leads.json");
 
 function ensureDataDir() {
   if (!fs.existsSync(DATA_DIR)) {
@@ -36,4 +37,35 @@ export function loadSettings(): Settings {
 export function saveSettings(settings: Settings): void {
   ensureDataDir();
   fs.writeFileSync(SETTINGS_FILE, JSON.stringify(settings, null, 2), "utf-8");
+}
+
+export interface Lead {
+  name: string;
+  email: string;
+  phone: string;
+  trucks: string;
+  timestamp: string;
+}
+
+export function saveLead(lead: Lead): void {
+  ensureDataDir();
+  let leads: Lead[] = [];
+  if (fs.existsSync(LEADS_FILE)) {
+    try {
+      leads = JSON.parse(fs.readFileSync(LEADS_FILE, "utf-8"));
+    } catch {
+      leads = [];
+    }
+  }
+  leads.push(lead);
+  fs.writeFileSync(LEADS_FILE, JSON.stringify(leads, null, 2), "utf-8");
+}
+
+export function getLeads(): Lead[] {
+  if (!fs.existsSync(LEADS_FILE)) return [];
+  try {
+    return JSON.parse(fs.readFileSync(LEADS_FILE, "utf-8"));
+  } catch {
+    return [];
+  }
 }
