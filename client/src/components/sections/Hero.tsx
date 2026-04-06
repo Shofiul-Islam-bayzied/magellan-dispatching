@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, PhoneCall, ShieldCheck, TrendingUp, ArrowRight, Volume2, VolumeX } from "lucide-react";
-import { fbTrack, fbCustomTrack, gaTrack } from "@/lib/fbtrack";
+import { gaTrack } from "@/lib/fbtrack";
 import heroTruckPoster from "@/assets/images/hero-truck.jpg";
 
 const fadeUp = {
@@ -118,7 +118,6 @@ export default function Hero() {
   function toggleMute() {
     const newMuted = !muted;
     setMuted(newMuted);
-    fbCustomTrack("VideoMuteToggle", { muted: newMuted, section: "Hero" });
     gaTrack("video_mute_toggle", { muted: newMuted, section: "Hero" });
     const v = videoRef.current;
     if (!v) return;
@@ -194,8 +193,7 @@ export default function Hero() {
               <Button
                 size="lg"
                 onClick={() => {
-                  fbTrack("Lead", { content_name: "Hero CTA" });
-                  gaTrack("generate_lead", { method: "Hero CTA" });
+                  gaTrack("cta_click", { location: "Hero" });
                   window.location.href = "/get-started";
                 }}
                 className="w-full sm:w-auto text-sm sm:text-xl px-8 py-4 sm:px-10 sm:py-8 bg-primary text-white hover:bg-white hover:text-[#0B3C5D] rounded-none transition-all duration-300 font-bold tracking-[0.15em] uppercase group"

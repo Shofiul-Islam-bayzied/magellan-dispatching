@@ -1,4 +1,4 @@
-import { fbTrack, gaTrack } from "@/lib/fbtrack";
+import { gaTrack } from "@/lib/fbtrack";
 
 export default function HowItWorks() {
   const steps = [
@@ -56,8 +56,7 @@ export default function HowItWorks() {
         <div className="mt-12 sm:mt-20 text-center">
           <button
             onClick={() => {
-              fbTrack("Lead", { content_name: "HowItWorks CTA" });
-              gaTrack("generate_lead", { method: "HowItWorks CTA" });
+              gaTrack("cta_click", { location: "HowItWorks" });
               window.location.href = "/get-started";
             }}
             className="bg-primary text-white px-8 py-4 sm:px-10 sm:py-5 font-display font-bold text-lg sm:text-xl uppercase tracking-widest hover:bg-[#0B3C5D] transition-colors duration-300 shadow-[4px_4px_0_0_rgba(0,0,0,0.3)] hover:shadow-none hover:translate-y-1 hover:translate-x-1"

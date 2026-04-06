@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Analytics from "@/components/Analytics";
-import { fbTrack, fbCustomTrack, gaTrack, clarityEvent } from "@/lib/fbtrack";
+import { fbTrack, gaTrack, clarityEvent } from "@/lib/fbtrack";
 import { useScrollDepth } from "@/lib/useScrollDepth";
 import type { PublicSettings } from "@shared/schema";
 
@@ -39,7 +39,6 @@ export default function Schedule() {
         container.innerHTML = "";
         Cal.initInlineWidget({ url: CALENDLY_URL, parentElement: container });
         // CalendlyLoaded — widget successfully initialised
-        fbCustomTrack("CalendlyLoaded", { page: "Schedule" });
         gaTrack("calendly_loaded");
         clarityEvent("calendly_loaded");
       }

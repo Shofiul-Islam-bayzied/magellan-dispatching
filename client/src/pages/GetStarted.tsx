@@ -10,17 +10,12 @@ export default function GetStarted() {
   useScrollDepth("GetStarted");
 
   useEffect(() => {
-    // ViewContent — user landed on the lead form page
+    // ViewContent — user is on the lead form page, showing intent
     fbTrack("ViewContent", {
       content_name: "Get Started – Lead Form",
       content_category: "Lead Form",
     });
-    // InitiateCheckout — user is starting the lead capture process
-    fbTrack("InitiateCheckout", {
-      content_name: "Free Dispatch Consultation",
-      content_category: "Lead Form",
-    });
-    gaTrack("begin_checkout", { item_name: "Free Dispatch Consultation" });
+    gaTrack("view_item", { item_name: "Get Started – Lead Form" });
   }, []);
 
   return (

@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from "react";
 import { Play, Volume2, VolumeX, Maximize } from "lucide-react";
-import { fbCustomTrack, gaTrack, clarityEvent } from "@/lib/fbtrack";
+import { gaTrack, clarityEvent } from "@/lib/fbtrack";
 
 export default function VideoSection() {
   const [playing, setPlaying] = useState(false);
@@ -16,7 +16,6 @@ export default function VideoSection() {
     video.muted = true;
     setMuted(true);
     video.play().catch(() => setPlaying(false));
-    fbCustomTrack("VideoPlay", { video: "magellan-dispatch", section: "VideoSection" });
     gaTrack("video_play", { video_title: "Magellan Dispatch" });
     clarityEvent("video_play");
   }
@@ -38,7 +37,6 @@ export default function VideoSection() {
     const next = !video.muted;
     video.muted = next;
     setMuted(next);
-    fbCustomTrack("VideoMuteToggle", { muted: next, section: "VideoSection" });
     gaTrack("video_mute_toggle", { muted: next });
     // Some browsers (notably iOS) pause the video when muted state changes.
     // Use requestAnimationFrame so the browser settles before we check paused —
@@ -62,7 +60,6 @@ export default function VideoSection() {
     } else if ((video as any).webkitEnterFullscreen) {
       (video as any).webkitEnterFullscreen();
     }
-    fbCustomTrack("VideoFullscreen", { section: "VideoSection" });
     gaTrack("video_fullscreen", { video_title: "Magellan Dispatch" });
     clarityEvent("video_fullscreen");
   }

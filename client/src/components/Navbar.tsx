@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Compass, Menu, X } from "lucide-react";
-import { fbTrack, fbCustomTrack, gaTrack } from "@/lib/fbtrack";
+import { gaTrack } from "@/lib/fbtrack";
 
 const NAV_ITEMS = [
   { label: "Problems", id: "problems" },
@@ -27,7 +27,6 @@ export default function Navbar() {
 
   function handleNavClick(sectionId: string) {
     setMenuOpen(false);
-    fbCustomTrack("NavClick", { section: sectionId });
     gaTrack("nav_click", { section: sectionId });
     if (isHome) {
       // Already on home — just scroll
@@ -39,8 +38,7 @@ export default function Navbar() {
   }
 
   function handleGetStarted() {
-    fbTrack("Lead", { content_name: "Navbar CTA" });
-    gaTrack("generate_lead", { method: "Navbar CTA" });
+    gaTrack("cta_click", { location: "Navbar" });
     setMenuOpen(false);
   }
 

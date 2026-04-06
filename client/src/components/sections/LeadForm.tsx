@@ -4,7 +4,7 @@ import { z } from "zod";
 import { useState, useRef } from "react";
 import { useLocation } from "wouter";
 import { CheckCircle2 } from "lucide-react";
-import { fbTrack, fbCustomTrack, gaTrack, clarityEvent } from "@/lib/fbtrack";
+import { fbTrack, gaTrack, clarityEvent } from "@/lib/fbtrack";
 import { Button } from "@/components/ui/button";
 
 const schema = z.object({
@@ -37,11 +37,10 @@ export default function LeadForm() {
 
   const selectedTruckType = watch("truckType");
 
-  // Fire FormStart once on the first field focus
+  // Track first field focus in GA4/Clarity only — not sent to Meta
   function handleFormStart() {
     if (formStarted.current) return;
     formStarted.current = true;
-    fbCustomTrack("FormStart", { form: "Lead Form" });
     gaTrack("form_start", { form_name: "Lead Form" });
     clarityEvent("form_start");
   }
@@ -66,11 +65,10 @@ export default function LeadForm() {
     setLocation("/schedule");
   }
 
-  // Track validation errors when user tries to submit with invalid data
+  // Track validation errors in GA4 only — not sent to Meta
   function onInvalidSubmit(validationErrors: typeof errors) {
     const errorFields = Object.keys(validationErrors).filter((k) => k !== "website");
     if (errorFields.length > 0) {
-      fbCustomTrack("FormValidationError", { fields: errorFields.join(",") });
       gaTrack("form_error", { form_name: "Lead Form", error_fields: errorFields.join(",") });
     }
   }
