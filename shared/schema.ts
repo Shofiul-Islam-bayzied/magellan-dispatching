@@ -22,6 +22,7 @@ export const analyticsSchema = z.object({
 
 export const settingsSchema = z.object({
   adminPassword: z.string(),
+  adminSlug: z.string(),
   contact: contactSchema,
   calendly: calendlySchema,
   analytics: analyticsSchema,
@@ -33,6 +34,7 @@ export type CalendlySettings = z.infer<typeof calendlySchema>;
 export type AnalyticsSettings = z.infer<typeof analyticsSchema>;
 
 export const publicSettingsSchema = z.object({
+  adminSlug: z.string(),
   contact: contactSchema,
   calendly: calendlySchema,
   analytics: analyticsSchema,
@@ -42,9 +44,10 @@ export type PublicSettings = z.infer<typeof publicSettingsSchema>;
 
 export const defaultSettings: Settings = {
   adminPassword: "admin123",
+  adminSlug: "mgmt-9x7k",
   contact: {
     email: "info@magellandispatching.com",
-    phone: "(800) 555-0199",
+    phone: "",
     address: "",
   },
   calendly: {

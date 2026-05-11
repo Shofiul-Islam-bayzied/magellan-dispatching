@@ -140,6 +140,7 @@ export async function registerRoutes(
     const updated = {
       ...current,
       ...body,
+      adminSlug: body.adminSlug ?? current.adminSlug,
       contact: body.contact ? { ...current.contact, ...body.contact } : current.contact,
       calendly: body.calendly ? { ...current.calendly, ...body.calendly } : current.calendly,
       analytics: body.analytics ? { ...current.analytics, ...body.analytics } : current.analytics,
