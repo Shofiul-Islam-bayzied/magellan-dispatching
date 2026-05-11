@@ -82,15 +82,15 @@ export default function LeadForm() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start max-w-7xl mx-auto">
 
-          {/* Left: Copy */}
-          <div className="w-full lg:w-5/12 pt-4 sm:pt-10">
+          {/* Left: Copy — below form on mobile, left on desktop */}
+          <div className="w-full lg:w-5/12 pt-4 sm:pt-10 order-last lg:order-first">
             <div className="inline-flex items-center gap-3 px-4 py-1 mb-6 sm:mb-8 bg-[#0B3C5D] text-white font-display font-bold text-xs sm:text-sm tracking-widest uppercase transform -skew-x-12">
               <span className="transform skew-x-12 block">Get Started</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#2F2F2F] mb-6 sm:mb-8 uppercase tracking-tighter leading-[0.95] sm:leading-[0.9]">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#2F2F2F] mb-6 sm:mb-8 uppercase tracking-tighter leading-[0.95] sm:leading-[0.9]">
               READY TO MAXIMIZE <span className="text-primary block mt-1 sm:mt-2">YOUR REVENUE?</span>
-            </h2>
+            </h1>
 
             <p className="text-lg sm:text-xl text-gray-600 font-sans mb-8 sm:mb-12 leading-relaxed border-l-4 border-primary pl-4 sm:pl-6">
               Tell us about your operation and we'll set up a free 30-minute call with our dispatch specialists to show you exactly how much you're leaving on the table.
@@ -116,75 +116,96 @@ export default function LeadForm() {
             </div>
           </div>
 
-          {/* Right: Form */}
-          <div className="w-full lg:w-7/12">
+          {/* Right: Form — first on mobile, right on desktop */}
+          <div className="w-full lg:w-7/12 order-first lg:order-last">
             <div className="bg-white shadow-[0_20px_50px_rgba(0,0,0,0.1)] border-4 border-[#0B3C5D] relative">
               <div className="absolute top-0 left-0 right-0 h-4 bg-primary z-10" />
               <div className="p-8 sm:p-10 mt-4">
-                <h3 className="text-xl sm:text-2xl font-black text-[#2F2F2F] uppercase tracking-tight mb-1">
+                <h2 className="text-xl sm:text-2xl font-black text-[#2F2F2F] uppercase tracking-tight mb-1">
                   Claim Your Free Consultation
-                </h3>
+                </h2>
                 <p className="text-gray-500 text-sm mb-8">
                   Takes less than 60 seconds. No credit card needed.
                 </p>
 
-                <form onSubmit={handleSubmit(onSubmit, onInvalidSubmit)} className="space-y-5">
+                <form onSubmit={handleSubmit(onSubmit, onInvalidSubmit)} noValidate className="space-y-5">
                   {/* Name */}
                   <div>
-                    <label className="block text-xs font-black uppercase tracking-widest text-[#2F2F2F] mb-1">
+                    <label htmlFor="lf-name" className="block text-xs font-black uppercase tracking-widest text-[#2F2F2F] mb-1">
                       Full Name *
                     </label>
                     <input
+                      id="lf-name"
                       {...register("name")}
                       className="w-full border-2 border-gray-200 focus:border-primary outline-none px-4 py-3 text-sm font-medium transition-colors"
                       placeholder="John Smith"
+                      autoComplete="name"
+                      aria-required="true"
+                      aria-invalid={!!errors.name}
+                      aria-describedby={errors.name ? "lf-name-error" : undefined}
                       onFocus={handleFormStart}
                     />
                     {errors.name && (
-                      <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
+                      <p id="lf-name-error" role="alert" className="text-red-500 text-xs mt-1">{errors.name.message}</p>
                     )}
                   </div>
 
                   {/* Email */}
                   <div>
-                    <label className="block text-xs font-black uppercase tracking-widest text-[#2F2F2F] mb-1">
+                    <label htmlFor="lf-email" className="block text-xs font-black uppercase tracking-widest text-[#2F2F2F] mb-1">
                       Email Address *
                     </label>
                     <input
+                      id="lf-email"
                       {...register("email")}
                       type="email"
+                      inputMode="email"
                       className="w-full border-2 border-gray-200 focus:border-primary outline-none px-4 py-3 text-sm font-medium transition-colors"
                       placeholder="john@example.com"
+                      autoComplete="email"
+                      aria-required="true"
+                      aria-invalid={!!errors.email}
+                      aria-describedby={errors.email ? "lf-email-error" : undefined}
                     />
                     {errors.email && (
-                      <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>
+                      <p id="lf-email-error" role="alert" className="text-red-500 text-xs mt-1">{errors.email.message}</p>
                     )}
                   </div>
 
                   {/* Phone */}
                   <div>
-                    <label className="block text-xs font-black uppercase tracking-widest text-[#2F2F2F] mb-1">
+                    <label htmlFor="lf-phone" className="block text-xs font-black uppercase tracking-widest text-[#2F2F2F] mb-1">
                       Phone Number *
                     </label>
                     <input
+                      id="lf-phone"
                       {...register("phone")}
                       type="tel"
+                      inputMode="tel"
                       className="w-full border-2 border-gray-200 focus:border-primary outline-none px-4 py-3 text-sm font-medium transition-colors"
                       placeholder="(555) 000-0000"
+                      autoComplete="tel"
+                      aria-required="true"
+                      aria-invalid={!!errors.phone}
+                      aria-describedby={errors.phone ? "lf-phone-error" : undefined}
                     />
                     {errors.phone && (
-                      <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>
+                      <p id="lf-phone-error" role="alert" className="text-red-500 text-xs mt-1">{errors.phone.message}</p>
                     )}
                   </div>
 
                   {/* Truck Type */}
                   <div>
-                    <label className="block text-xs font-black uppercase tracking-widest text-[#2F2F2F] mb-1">
+                    <label htmlFor="lf-trucktype" className="block text-xs font-black uppercase tracking-widest text-[#2F2F2F] mb-1">
                       What type of truck do you operate? *
                     </label>
                     <select
+                      id="lf-trucktype"
                       {...register("truckType")}
                       className="w-full border-2 border-gray-200 focus:border-primary outline-none px-4 py-3 text-sm font-medium transition-colors bg-white"
+                      aria-required="true"
+                      aria-invalid={!!errors.truckType}
+                      aria-describedby={errors.truckType ? "lf-trucktype-error" : undefined}
                     >
                       <option value="">Select...</option>
                       <option value="Dry Van">Dry Van</option>
@@ -193,18 +214,21 @@ export default function LeadForm() {
                       <option value="Other">Other</option>
                     </select>
                     {errors.truckType && (
-                      <p className="text-red-500 text-xs mt-1">{errors.truckType.message}</p>
+                      <p id="lf-trucktype-error" role="alert" className="text-red-500 text-xs mt-1">{errors.truckType.message}</p>
                     )}
                     {selectedTruckType === "Other" && (
                       <div className="mt-3">
                         <input
+                          id="lf-trucktype-other"
                           {...register("truckTypeOther")}
                           placeholder="Please describe your truck type..."
                           className="w-full border-2 border-primary outline-none px-4 py-3 text-sm font-medium transition-colors"
                           autoFocus
+                          aria-invalid={!!errors.truckTypeOther}
+                          aria-describedby={errors.truckTypeOther ? "lf-trucktype-other-error" : undefined}
                         />
                         {errors.truckTypeOther && (
-                          <p className="text-red-500 text-xs mt-1">{errors.truckTypeOther.message}</p>
+                          <p id="lf-trucktype-other-error" role="alert" className="text-red-500 text-xs mt-1">{errors.truckTypeOther.message}</p>
                         )}
                       </div>
                     )}

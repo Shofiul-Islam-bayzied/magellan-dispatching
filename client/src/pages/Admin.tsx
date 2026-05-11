@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-import { Compass, LogOut, Phone, Mail, Calendar, BarChart3, Key, Save, Eye, EyeOff, Check, Users, Download } from "lucide-react";
+import { Compass, LogOut, Phone, Mail, Calendar, BarChart3, Key, Save, Eye, EyeOff, Check, Users, Download, Link } from "lucide-react";
 import { apiRequest, getQueryFn } from "@/lib/queryClient";
+import { useLocation } from "wouter";
 import type { PublicSettings, ContactSettings, CalendlySettings, AnalyticsSettings } from "@shared/schema";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
 interface AdminSettings extends PublicSettings {
   adminPassword?: string;
+  adminSlug?: string;
 }
 
 // ── Small helpers ─────────────────────────────────────────────────────────────
@@ -492,6 +494,60 @@ function LeadsSection() {
   );
 }
 
+// ── Access URL ────────────────────────────────────────────────────────────────
+
+function AccessSection({ settings }: { settings: AdminSettings }) {
+  const qc = useQueryClient();
+  const [, navigate] = useLocation();
+  const [saved, setSaved] = useState(false);
+
+  const { register, handleSubmit, formState: { errors } } = useForm<{ adminSlug: string }>({
+    defaultValues: { adminSlug: settings.adminSlug ?? "mgmt-9x7k" },
+  });
+
+  const mutation = useMutation({
+    mutationFn: (data: { adminSlug: string }) =>
+      apiRequest("PUT", "/api/admin/settings", { adminSlug: data.adminSlug }),
+    onSuccess: (_res, data) => {
+      qc.invalidateQueries({ queryKey: ["/api/public/settings"] });
+      setSaved(true);
+      setTimeout(() => {
+        setSaved(false);
+        navigate(`/${data.adminSlug}`);
+      }, 1200);
+    },
+  });
+
+  return (
+    <form onSubmit={handleSubmit((d) => mutation.mutate(d))} className="space-y-6">
+      <FormField
+        label="Admin URL Slug"
+        hint="Letters, numbers, and hyphens only. You will be redirected to the new URL after saving."
+      >
+        <div className="flex items-center gap-2">
+          <span className="text-gray-500 text-sm shrink-0">{window.location.origin}/</span>
+          <input
+            {...register("adminSlug", {
+              required: true,
+              pattern: { value: /^[a-z0-9-]+$/, message: "Only lowercase letters, numbers, and hyphens" },
+              minLength: { value: 4, message: "At least 4 characters" },
+            })}
+            className={inputCls}
+            placeholder="my-secret-path"
+          />
+        </div>
+        {errors.adminSlug && (
+          <p className="mt-1 text-xs text-red-400">{errors.adminSlug.message}</p>
+        )}
+      </FormField>
+      <SaveButton isPending={mutation.isPending} saved={saved} />
+      {mutation.isError && (
+        <p className="text-sm text-red-400">Failed to save. Please try again.</p>
+      )}
+    </form>
+  );
+}
+
 // ── Login ─────────────────────────────────────────────────────────────────────
 
 function LoginForm({ onLogin }: { onLogin: () => void }) {
@@ -515,7 +571,7 @@ function LoginForm({ onLogin }: { onLogin: () => void }) {
             <Compass className="w-7 h-7 text-white" />
           </div>
           <div>
-            <p className="text-2xl font-black tracking-tighter text-white uppercase leading-none">Magellan</p>
+            <p className="text-2xl font-black tracking-tighter text-white uppercase leading-none">Northline</p>
             <p className="text-[10px] text-primary font-bold tracking-[0.3em] uppercase">Admin Panel</p>
           </div>
         </div>
@@ -565,11 +621,6 @@ function LoginForm({ onLogin }: { onLogin: () => void }) {
             </button>
           </form>
 
-          <p className="mt-6 text-center text-xs text-gray-600">
-            Default password: <code className="text-gray-400">admin123</code>
-            <br />
-            Change it in the Password tab after logging in.
-          </p>
         </div>
       </div>
     </div>
@@ -578,7 +629,7 @@ function LoginForm({ onLogin }: { onLogin: () => void }) {
 
 // ── Dashboard ─────────────────────────────────────────────────────────────────
 
-type Tab = "leads" | "contact" | "calendly" | "analytics" | "password";
+type Tab = "leads" | "contact" | "calendly" | "analytics" | "password" | "access";
 
 const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
   { id: "leads", label: "Leads", icon: <Users className="w-4 h-4" /> },
@@ -586,6 +637,7 @@ const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
   { id: "calendly", label: "Calendly", icon: <Calendar className="w-4 h-4" /> },
   { id: "analytics", label: "Analytics", icon: <BarChart3 className="w-4 h-4" /> },
   { id: "password", label: "Password", icon: <Key className="w-4 h-4" /> },
+  { id: "access", label: "Access URL", icon: <Link className="w-4 h-4" /> },
 ];
 
 function Dashboard({ onLogout }: { onLogout: () => void }) {
@@ -610,7 +662,7 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
             <Compass className="w-5 h-5 text-white" />
           </div>
           <div>
-            <p className="text-white font-black tracking-tighter uppercase text-base leading-none">Magellan</p>
+            <p className="text-white font-black tracking-tighter uppercase text-base leading-none">Northline</p>
             <p className="text-[9px] text-primary font-bold tracking-[0.3em] uppercase">Admin Panel</p>
           </div>
         </div>
@@ -709,6 +761,15 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
                   icon={<Key className="w-5 h-5 text-primary" />}
                 >
                   <PasswordSection />
+                </Section>
+              )}
+              {activeTab === "access" && (
+                <Section
+                  title="Admin Access URL"
+                  description="Change the secret URL path used to reach this admin panel. After saving you will be redirected automatically."
+                  icon={<Link className="w-5 h-5 text-primary" />}
+                >
+                  <AccessSection settings={settings} />
                 </Section>
               )}
             </>
