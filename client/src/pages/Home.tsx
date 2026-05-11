@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { fbTrack, gaTrack } from "@/lib/fbtrack";
 import { useScrollDepth, useTimeOnPage } from "@/lib/useScrollDepth";
+import { usePageMeta } from "@/lib/usePageMeta";
 import Hero from "@/components/sections/Hero";
 import TrustBanner from "@/components/sections/TrustBanner";
 import Problems from "@/components/sections/Problems";
@@ -14,6 +15,17 @@ import Footer from "@/components/Footer";
 import Analytics from "@/components/Analytics";
 
 export default function Home() {
+  usePageMeta({
+    title: "Northline Dispatching | Truck Dispatch Service | Higher Paying Loads",
+    description:
+      "Dedicated truck dispatch for owner-operators and small fleets. Higher paying loads, no forced dispatch, 24/7 support. Book a free call today.",
+    canonical: "https://northlinedispatching.com/",
+    ogTitle: "Northline Dispatching | Truck Dispatch Service | Higher Paying Loads",
+    ogDescription:
+      "Get a dedicated dispatcher, no forced dispatch, and keep more of your revenue. Higher paying loads guaranteed.",
+    ogUrl: "https://northlinedispatching.com/",
+  });
+
   // Scroll depth + time on page tracking
   useScrollDepth("Home");
   useTimeOnPage("Home");
@@ -21,7 +33,7 @@ export default function Home() {
   useEffect(() => {
     // ViewContent — user is viewing the main offer page
     fbTrack("ViewContent", {
-      content_name: "Magellan Dispatching Landing Page",
+      content_name: "Northline Dispatching Landing Page",
       content_category: "Trucking Dispatch",
     });
     gaTrack("view_item", { item_name: "Landing Page" });

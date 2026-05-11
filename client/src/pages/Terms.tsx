@@ -1,7 +1,17 @@
 import { Link } from "wouter";
 import { Compass, ArrowLeft } from "lucide-react";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 export default function Terms() {
+  usePageMeta({
+    title: "Terms of Service | Northline Dispatching",
+    description:
+      "Terms governing use of Northline Dispatching's truck dispatch services. Service agreements, fees, liability, and termination policies.",
+    canonical: "https://northlinedispatching.com/terms",
+    ogTitle: "Terms of Service | Northline Dispatching",
+    ogDescription: "Service agreement terms for Northline Dispatching's owner-operator and small-fleet dispatch clients.",
+    ogUrl: "https://northlinedispatching.com/terms",
+  });
   return (
     <div className="min-h-screen bg-white text-[#1a1a1a]">
       {/* Header */}
@@ -13,7 +23,7 @@ export default function Terms() {
                 <Compass className="w-6 h-6 text-white transform skew-x-12" />
               </div>
               <div className="flex flex-col">
-                <span className="text-xl font-black tracking-tighter text-white uppercase leading-none">Magellan</span>
+                <span className="text-xl font-black tracking-tighter text-white uppercase leading-none">Northline</span>
                 <span className="text-[10px] text-primary font-bold tracking-[0.2em] uppercase leading-none mt-1">Dispatching</span>
               </div>
             </a>
@@ -39,12 +49,12 @@ export default function Terms() {
 
         <div className="prose max-w-none space-y-8 text-gray-700 leading-relaxed">
           <section>
-            <p>By accessing or using the Magellan Dispatching website and services, you agree to be bound by these Terms of Service. Please read them carefully before using our services.</p>
+            <p>By accessing or using the Northline Dispatching website and services, you agree to be bound by these Terms of Service. Please read them carefully before using our services.</p>
           </section>
 
           <section>
             <h2 className="text-xl font-black text-[#0B3C5D] uppercase tracking-tight mb-3 border-l-4 border-primary pl-4">1. Services</h2>
-            <p>Magellan Dispatching provides truck dispatching services to independent owner-operators and small fleet owners. Our services include load sourcing, rate negotiation, broker credit checks, paperwork management, and route planning. Specific service terms will be outlined in a separate service agreement between Magellan Dispatching and the client.</p>
+            <p>Northline Dispatching provides truck dispatching services to independent owner-operators and small fleet owners. Our services include load sourcing, rate negotiation, broker credit checks, paperwork management, and route planning. Specific service terms will be outlined in a separate service agreement between Northline Dispatching and the client.</p>
           </section>
 
           <section>
@@ -54,12 +64,12 @@ export default function Terms() {
 
           <section>
             <h2 className="text-xl font-black text-[#0B3C5D] uppercase tracking-tight mb-3 border-l-4 border-primary pl-4">3. No Forced Dispatch</h2>
-            <p>Magellan Dispatching operates on a no-forced-dispatch policy. Clients retain full authority over which loads they accept or decline. We act as your agent in sourcing and negotiating freight, but all final decisions remain with the carrier.</p>
+            <p>Northline Dispatching operates on a no-forced-dispatch policy. Clients retain full authority over which loads they accept or decline. We act as your agent in sourcing and negotiating freight, but all final decisions remain with the carrier.</p>
           </section>
 
           <section>
             <h2 className="text-xl font-black text-[#0B3C5D] uppercase tracking-tight mb-3 border-l-4 border-primary pl-4">4. Fees & Payment</h2>
-            <p>Service fees are outlined in your individual service agreement. Fees are typically calculated as a percentage of the gross load revenue. Payment terms, invoicing schedules, and acceptable payment methods are specified in the service agreement. Magellan Dispatching does not charge upfront fees for consultations or onboarding assessments.</p>
+            <p>Service fees are outlined in your individual service agreement. Fees are typically calculated as a percentage of the gross load revenue. Payment terms, invoicing schedules, and acceptable payment methods are specified in the service agreement. Northline Dispatching does not charge upfront fees for consultations or onboarding assessments.</p>
           </section>
 
           <section>
@@ -83,7 +93,7 @@ export default function Terms() {
 
           <section>
             <h2 className="text-xl font-black text-[#0B3C5D] uppercase tracking-tight mb-3 border-l-4 border-primary pl-4">6. Limitation of Liability</h2>
-            <p>Magellan Dispatching acts as a dispatch agent and is not liable for: cargo damage or loss, delays caused by weather, traffic, or mechanical issues, broker non-payment (though we conduct credit checks), or any indirect, incidental, or consequential damages. Our liability is limited to the fees paid for the specific dispatch service in question.</p>
+            <p>Northline Dispatching acts as a dispatch agent and is not liable for: cargo damage or loss, delays caused by weather, traffic, or mechanical issues, broker non-payment (though we conduct credit checks), or any indirect, incidental, or consequential damages. Our liability is limited to the fees paid for the specific dispatch service in question.</p>
           </section>
 
           <section>
@@ -93,7 +103,7 @@ export default function Terms() {
 
           <section>
             <h2 className="text-xl font-black text-[#0B3C5D] uppercase tracking-tight mb-3 border-l-4 border-primary pl-4">8. Termination</h2>
-            <p>Either party may terminate the service relationship with written notice as specified in the service agreement. Upon termination, all outstanding fees become immediately due. Magellan Dispatching may terminate service immediately for breach of these terms, non-payment, or loss of operating authority.</p>
+            <p>Either party may terminate the service relationship with written notice as specified in the service agreement. Upon termination, all outstanding fees become immediately due. Northline Dispatching may terminate service immediately for breach of these terms, non-payment, or loss of operating authority.</p>
           </section>
 
           <section>
@@ -115,7 +125,7 @@ export default function Terms() {
             <h2 className="text-xl font-black text-[#0B3C5D] uppercase tracking-tight mb-3 border-l-4 border-primary pl-4">12. Contact Us</h2>
             <p>Questions about these Terms of Service? Contact us:</p>
             <div className="mt-4 bg-gray-50 border-l-4 border-primary p-5">
-              <p className="font-black text-[#0B3C5D] uppercase tracking-wider mb-1">Magellan Dispatching</p>
+              <p className="font-black text-[#0B3C5D] uppercase tracking-wider mb-1">Northline Dispatching</p>
               <p>Email: <a href="mailto:info@magellandispatching.com" className="text-primary font-bold hover:underline">info@magellandispatching.com</a></p>
             </div>
           </section>
@@ -123,7 +133,7 @@ export default function Terms() {
       </main>
 
       <footer className="bg-[#111111] border-t-4 border-primary py-8 text-center text-gray-500 text-sm font-sans">
-        <p className="uppercase tracking-widest font-bold">© {new Date().getFullYear()} Magellan Dispatching. All rights reserved.</p>
+        <p className="uppercase tracking-widest font-bold">© {new Date().getFullYear()} Northline Dispatching. All rights reserved.</p>
       </footer>
     </div>
   );

@@ -1,5 +1,5 @@
-# robots.txt — Magellan Dispatching
-# https://magellandispatching.com/robots.txt
+# robots.txt — Northline Dispatching
+# https://northlinedispatching.com/robots.txt
 
 # ── Standard crawlers ────────────────────────────────────────────────────────
 User-agent: *
@@ -74,4 +74,4 @@ User-agent: msnbot
 Allow: /
 
 # ── Sitemaps ─────────────────────────────────────────────────────────────────
-Sitemap: https://magellandispatching.com/sitemap.xml
+Sitemap: https://northlinedispatching.com/sitemap.xml

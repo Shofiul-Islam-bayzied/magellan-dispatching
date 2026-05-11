@@ -6,12 +6,24 @@ import Footer from "@/components/Footer";
 import Analytics from "@/components/Analytics";
 import { fbTrack, gaTrack, clarityEvent } from "@/lib/fbtrack";
 import { useScrollDepth } from "@/lib/useScrollDepth";
+import { usePageMeta } from "@/lib/usePageMeta";
 import type { PublicSettings } from "@shared/schema";
 
 const CALENDLY_URL =
   "https://calendly.com/team-magellandispatching/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=F97316";
 
 export default function Schedule() {
+  usePageMeta({
+    title: "Schedule a Free Call | Northline Dispatching",
+    description:
+      "Book your free 30-minute dispatch consultation. See how Northline gets owner-operators higher paying loads with no forced dispatch.",
+    canonical: "https://northlinedispatching.com/schedule",
+    ogTitle: "Schedule a Free Call with Northline Dispatching",
+    ogDescription:
+      "Pick a time slot — our dispatch specialists will walk through your operation and show you the revenue you're leaving on the table.",
+    ogUrl: "https://northlinedispatching.com/schedule",
+  });
+
   useScrollDepth("Schedule");
 
   const { data: settings } = useQuery<PublicSettings>({

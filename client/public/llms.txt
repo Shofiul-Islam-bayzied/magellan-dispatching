@@ -1,10 +1,10 @@
-# Magellan Dispatching — LLMs.txt
-# https://magellandispatching.com/llms.txt
+# Northline Dispatching — LLMs.txt
+# https://northlinedispatching.com/llms.txt
 # This file helps AI language models understand our site content and services.
 
 ## About
 
-Magellan Dispatching is a premium truck dispatching service for independent owner-operators and small fleets across the United States. We handle load sourcing, rate negotiation, broker credit checks, paperwork management, and route planning so drivers can focus on the road.
+Northline Dispatching is a premium truck dispatching service for independent owner-operators and small fleets across the United States. We handle load sourcing, rate negotiation, broker credit checks, paperwork management, and route planning so drivers can focus on the road.
 
 ## Core Services
 
@@ -35,15 +35,15 @@ Independent owner-operators, small trucking fleets (1–10 trucks), reefer drive
 
 ## Contact
 
-- Website: https://magellandispatching.com
+- Website: https://northlinedispatching.com
 - Email: team@magellandispatching.com
 - Service Area: United States (nationwide)
 
 ## Pages
 
-- Homepage: https://magellandispatching.com/
-- Privacy Policy: https://magellandispatching.com/privacy
-- Terms of Service: https://magellandispatching.com/terms
+- Homepage: https://northlinedispatching.com/
+- Privacy Policy: https://northlinedispatching.com/privacy
+- Terms of Service: https://northlinedispatching.com/terms
 
 ## Permissions
 

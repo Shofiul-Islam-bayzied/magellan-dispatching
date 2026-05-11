@@ -1,7 +1,17 @@
 import { Link } from "wouter";
 import { Compass, ArrowLeft } from "lucide-react";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 export default function Privacy() {
+  usePageMeta({
+    title: "Privacy Policy | Northline Dispatching",
+    description:
+      "How Northline Dispatching collects, uses, and protects your information. Data practices for our truck dispatch service.",
+    canonical: "https://northlinedispatching.com/privacy",
+    ogTitle: "Privacy Policy | Northline Dispatching",
+    ogDescription: "Read our privacy practices, data handling, and your rights as a Northline Dispatching client.",
+    ogUrl: "https://northlinedispatching.com/privacy",
+  });
   return (
     <div className="min-h-screen bg-white text-[#1a1a1a]">
       {/* Header */}
@@ -13,7 +23,7 @@ export default function Privacy() {
                 <Compass className="w-6 h-6 text-white transform skew-x-12" />
               </div>
               <div className="flex flex-col">
-                <span className="text-xl font-black tracking-tighter text-white uppercase leading-none">Magellan</span>
+                <span className="text-xl font-black tracking-tighter text-white uppercase leading-none">Northline</span>
                 <span className="text-[10px] text-primary font-bold tracking-[0.2em] uppercase leading-none mt-1">Dispatching</span>
               </div>
             </a>
@@ -82,7 +92,7 @@ export default function Privacy() {
               {[
                 "With service providers who assist in operating our website or business (e.g., Calendly for scheduling)",
                 "When required by law, regulation, or legal process",
-                "To protect the rights, property, or safety of Magellan Dispatching or others",
+                "To protect the rights, property, or safety of Northline Dispatching or others",
               ].map((item, i) => (
                 <li key={i} className="flex gap-3 items-start">
                   <span className="mt-1.5 w-2 h-2 bg-primary flex-shrink-0" />
@@ -135,7 +145,7 @@ export default function Privacy() {
             <h2 className="text-xl font-black text-[#0B3C5D] uppercase tracking-tight mb-3 border-l-4 border-primary pl-4">9. Contact Us</h2>
             <p>If you have any questions about this Privacy Policy, please contact us:</p>
             <div className="mt-4 bg-gray-50 border-l-4 border-primary p-5">
-              <p className="font-black text-[#0B3C5D] uppercase tracking-wider mb-1">Magellan Dispatching</p>
+              <p className="font-black text-[#0B3C5D] uppercase tracking-wider mb-1">Northline Dispatching</p>
               <p>Email: <a href="mailto:info@magellandispatching.com" className="text-primary font-bold hover:underline">info@magellandispatching.com</a></p>
             </div>
           </section>
@@ -143,7 +153,7 @@ export default function Privacy() {
       </main>
 
       <footer className="bg-[#111111] border-t-4 border-primary py-8 text-center text-gray-500 text-sm font-sans">
-        <p className="uppercase tracking-widest font-bold">© {new Date().getFullYear()} Magellan Dispatching. All rights reserved.</p>
+        <p className="uppercase tracking-widest font-bold">© {new Date().getFullYear()} Northline Dispatching. All rights reserved.</p>
       </footer>
     </div>
   );
