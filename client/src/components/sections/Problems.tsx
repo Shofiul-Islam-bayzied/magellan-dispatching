@@ -59,7 +59,7 @@ export default function Problems() {
             <div className="relative overflow-hidden shadow-2xl border-8 border-white">
               <img
                 src={driverProblemsImg}
-                alt="Stressed truck driver struggling with load boards and broker negotiations — a problem Magellan Dispatching solves"
+                alt="Stressed truck driver struggling with load boards and broker negotiations — a problem Northline Dispatching solves"
                 loading="lazy"
                 decoding="async"
                 className="w-full h-auto object-cover aspect-[4/3] filter grayscale contrast-125"

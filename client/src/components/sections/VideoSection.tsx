@@ -16,7 +16,7 @@ export default function VideoSection() {
     video.muted = true;
     setMuted(true);
     video.play().catch(() => setPlaying(false));
-    gaTrack("video_play", { video_title: "Magellan Dispatch" });
+    gaTrack("video_play", { video_title: "Northline Dispatch" });
     clarityEvent("video_play");
   }
 
@@ -60,7 +60,7 @@ export default function VideoSection() {
     } else if ((video as any).webkitEnterFullscreen) {
       (video as any).webkitEnterFullscreen();
     }
-    gaTrack("video_fullscreen", { video_title: "Magellan Dispatch" });
+    gaTrack("video_fullscreen", { video_title: "Northline Dispatch" });
     clarityEvent("video_fullscreen");
   }
 
@@ -120,7 +120,7 @@ export default function VideoSection() {
               >
                 <img
                   src="/video/magellan-poster.jpg"
-                  alt="Magellan Dispatching — watch how we scale your business"
+                  alt="Northline Dispatching — watch how we scale your business"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
                   width="1280"
@@ -133,7 +133,7 @@ export default function VideoSection() {
                   </div>
                 </div>
                 <div className="absolute bottom-4 left-4 sm:bottom-8 sm:left-8 bg-primary px-4 py-2 sm:px-6 sm:py-3 text-white font-bold uppercase tracking-[0.1em] text-xs sm:text-sm z-20">
-                  Magellan Dispatching
+                  Northline Dispatching
                 </div>
               </button>
             )}

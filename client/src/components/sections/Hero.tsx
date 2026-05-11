@@ -47,7 +47,7 @@ function HeroVideo({
         ref={videoRef}
         src="/video/magellan-dispatch.mp4"
         poster="/video/magellan-poster.jpg"
-        autoPlay muted playsInline preload="auto"
+        muted playsInline preload="metadata"
         className="w-full h-full object-cover"
         onEnded={onEnded}
       />
@@ -106,6 +106,30 @@ export default function Hero() {
     return () => mq.removeEventListener("change", handler);
   }, []);
 
+  // Lazy-start playback when the hero is at least 25% visible — avoids
+  // downloading 16 MB of video on initial paint and keeps LCP fast.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (typeof IntersectionObserver === "undefined") {
+      v.play().catch(() => {});
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting && v.paused) {
+            v.muted = true;
+            v.play().catch(() => {});
+          }
+        }
+      },
+      { threshold: 0.25 },
+    );
+    io.observe(v);
+    return () => io.disconnect();
+  }, [isDesktop]);
+
   // Defined in Hero so setMuted is in scope. Passed down as a prop to HeroVideo.
   function handleVideoEnded(e: React.SyntheticEvent<HTMLVideoElement>) {
     const v = e.currentTarget;
@@ -145,7 +169,7 @@ export default function Hero() {
           className="absolute inset-0 opacity-[0.07] z-10"
           style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1' fill='%23fff'/%3E%3C/svg%3E\")" }}
         />
-        <img src={heroTruckPoster} alt="" className="w-full h-full object-cover" />
+        <img src={heroTruckPoster} alt="" role="presentation" aria-hidden="true" className="w-full h-full object-cover" />
       </div>
 
       {/* ── Angled accent ───────────────────────────────────── */}

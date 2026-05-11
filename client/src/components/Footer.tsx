@@ -11,7 +11,7 @@ export default function Footer() {
   });
 
   const email = settings?.contact?.email || "info@magellandispatching.com";
-  const phone = settings?.contact?.phone || "(800) 555-0199";
+  const phone = settings?.contact?.phone || "";
   const address = settings?.contact?.address;
 
   return (
@@ -21,11 +21,11 @@ export default function Footer() {
           <div className="col-span-2">
             <div className="flex items-center gap-3 mb-4 sm:mb-6">
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-none flex items-center justify-center">
-                <Compass className="w-6 h-6 sm:w-8 sm:h-8 text-white" aria-label="Magellan Dispatching" />
+                <Compass className="w-6 h-6 sm:w-8 sm:h-8 text-white" aria-label="Northline Dispatching" />
               </div>
               <div className="flex flex-col">
                 <span className="text-2xl sm:text-3xl font-black tracking-tighter text-white uppercase leading-none drop-shadow-md">
-                  Magellan
+                  Northline
                 </span>
                 <span className="text-[10px] sm:text-xs text-primary font-bold tracking-[0.3em] uppercase leading-none mt-1">Dispatching</span>
               </div>
@@ -73,7 +73,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-800 pt-6 sm:pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500 text-xs sm:text-sm font-sans">
-          <p className="uppercase tracking-widest font-bold text-center sm:text-left">© {new Date().getFullYear()} Magellan Dispatching.</p>
+          <p className="uppercase tracking-widest font-bold text-center sm:text-left">© {new Date().getFullYear()} Northline Dispatching.</p>
           <div className="flex gap-4 sm:gap-6 uppercase tracking-widest font-bold">
             <Link href="/privacy"><a className="hover:text-white transition-colors">Privacy</a></Link>
             <Link href="/terms"><a className="hover:text-white transition-colors">Terms</a></Link>

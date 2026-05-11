@@ -56,11 +56,11 @@ export default function Navbar() {
           {/* Logo → always links to home */}
           <Link href="/" className="flex items-center gap-2 sm:gap-3 cursor-pointer">
             <div className="w-10 h-10 sm:w-14 sm:h-14 bg-primary flex items-center justify-center transform -skew-x-12 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.3)] sm:shadow-[4px_4px_0px_0px_rgba(0,0,0,0.3)]">
-              <Compass className="w-6 h-6 sm:w-8 sm:h-8 text-white transform skew-x-12" aria-label="Magellan Dispatching logo" />
+              <Compass className="w-6 h-6 sm:w-8 sm:h-8 text-white transform skew-x-12" aria-label="Northline Dispatching logo" />
             </div>
             <div className="flex flex-col">
               <span className="text-xl sm:text-3xl font-black tracking-tighter text-white uppercase leading-none drop-shadow-md">
-                Magellan
+                Northline
               </span>
               <span className="text-[10px] sm:text-xs text-primary font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase leading-none mt-1">
                 Dispatching

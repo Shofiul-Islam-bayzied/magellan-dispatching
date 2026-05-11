@@ -51,7 +51,7 @@ export default function Benefits() {
             <div className="rounded-none overflow-hidden shadow-[8px_8px_0_0_rgba(249,115,22,0.8)] border-4 border-white relative">
               <img
                 src={dispatcherImg}
-                alt="Happy truck driver standing in front of his truck — Magellan Dispatching owner-operator success story"
+                alt="Happy truck driver standing in front of his truck — Northline Dispatching owner-operator success story"
                 loading="lazy"
                 decoding="async"
                 className="w-full h-auto object-cover aspect-square filter grayscale contrast-125"
