@@ -33,28 +33,43 @@ Then `ssh root@217.77.1.24` works without a password.
 
 ## Deploy runbook
 
-Push from local first (`git push origin main`), then on the VPS:
+The server is **not** a git checkout — `/var/www/magellan` holds only the built `dist/`, `data/`, `node_modules/`, and `package.json`/`package-lock.json`. Source code stays on your laptop. The deploy is build-local-and-ship-artifacts.
+
+**Local (your machine):**
+
+```bash
+git push origin main                                # source-of-truth on GitHub
+npm run build                                       # writes dist/index.cjs + dist/public/
+tar -czf dist.tgz dist
+scp dist.tgz package.json package-lock.json root@217.77.1.24:/var/www/magellan/
+```
+
+**On the VPS:**
 
 ```bash
 ssh root@217.77.1.24
 cd /var/www/magellan
-git fetch origin
-git status                              # must be clean — investigate if not
-git log --oneline HEAD..origin/main     # preview incoming commits
-git pull --ff-only origin main
-npm ci
-npm run build                           # produces dist/index.cjs
+TS=$(date +%Y%m%d-%H%M%S)
+tar -czf /root/magellan-backup-$TS.tgz dist data package.json package-lock.json
+mkdir -p dist.new && tar -xzf dist.tgz -C dist.new --strip-components=1
+[ -f dist.new/index.cjs ] || { echo "extract failed"; exit 1; }
+mv dist dist.old.$TS && mv dist.new dist
+npm ci --omit=dev                                   # only if package-lock.json changed
 pm2 restart magellan --update-env
-pm2 logs magellan --lines 40 --nostream
+sleep 60 && pm2 logs magellan --lines 20 --nostream
 curl -s -o /dev/null -w 'HTTP %{http_code}\n' http://127.0.0.1:5000/
+rm -f dist.tgz
 ```
+
+Note: app takes **~60 seconds** to bind to port 5000 after `pm2 restart`. Don't panic if the first curl fails — wait a minute and re-check.
 
 ## Rollback
 
 ```bash
-# Roll back N commits and rebuild
-git -C /var/www/magellan reset --hard HEAD~N
-npm --prefix /var/www/magellan run build
+# Snap back to the previous dist (no rebuild needed)
+cd /var/www/magellan
+PREV=$(ls -td dist.old.* | head -1)
+rm -rf dist && mv "$PREV" dist
 pm2 restart magellan
 ```
 
